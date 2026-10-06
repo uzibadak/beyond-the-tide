@@ -156,3 +156,14 @@ document.addEventListener("keydown", (e) => {
      profilePage.classList.contains("open") ||
      overlay.classList.contains("open")) goBackInsideSite();
 });
+
+
+// Floating YouTube BGM player
+const oceanPlayer = document.getElementById("oceanPlayer");
+const oceanPlayerToggle = document.getElementById("oceanPlayerToggle");
+if(oceanPlayer && oceanPlayerToggle){
+  oceanPlayerToggle.addEventListener("click", () => {
+    const open = oceanPlayer.classList.toggle("open");
+    oceanPlayerToggle.setAttribute("aria-expanded", String(open));
+  });
+}
