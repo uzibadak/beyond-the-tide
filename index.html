@@ -6,7 +6,22 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="main-screen">
+
+  <aside class="ocean-player" id="oceanPlayer">
+    <button class="ocean-player__toggle" id="oceanPlayerToggle" type="button" aria-expanded="false">
+      <span class="ocean-player__note">♫</span>
+      <span><small>NOW PLAYING</small><b>OCEAN</b></span>
+      <span class="ocean-player__arrow">⌃</span>
+    </button>
+    <div class="ocean-player__body">
+      <div class="ocean-player__video">
+        <iframe src="https://www.youtube.com/embed/0u3E46BT04E?rel=0&playsinline=1" title="Martin Garrix feat. Khalid - Ocean" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <p>Martin Garrix feat. Khalid · Ocean</p>
+    </div>
+  </aside>
+
+<main class="main-screen">
     <div class="sunlight" aria-hidden="true"></div>
     <div class="window-shadow" aria-hidden="true"></div>
     <div class="prism prism-one" aria-hidden="true"></div>
@@ -223,19 +238,6 @@
       <p>somewhere beyond the tide, you.</p>
     </footer>
   </section>
-  <aside class="ocean-player" id="oceanPlayer">
-    <button class="ocean-player__toggle" id="oceanPlayerToggle" type="button" aria-expanded="false">
-      <span class="ocean-player__note">♫</span>
-      <span><small>NOW PLAYING</small><b>OCEAN</b></span>
-      <span class="ocean-player__arrow">⌃</span>
-    </button>
-    <div class="ocean-player__body">
-      <div class="ocean-player__video">
-        <iframe src="https://www.youtube.com/embed/0u3E46BT04E?rel=0&playsinline=1" title="Martin Garrix feat. Khalid - Ocean" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <p>Martin Garrix feat. Khalid · Ocean</p>
-    </div>
-  </aside>
   <section class="gallery-page" id="galleryPage" aria-hidden="true">
     <div class="gallery-topbar">
       <button class="gallery-back" id="galleryBack">← back</button>
