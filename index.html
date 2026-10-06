@@ -8,17 +8,13 @@
 <body>
 
   <aside class="ocean-player" id="oceanPlayer">
-    <button class="ocean-player__toggle" id="oceanPlayerToggle" type="button" aria-expanded="false">
-      <span class="ocean-player__note">♫</span>
-      <span><small>NOW PLAYING</small><b>OCEAN</b></span>
-      <span class="ocean-player__arrow">⌃</span>
-    </button>
-    <div class="ocean-player__body">
-      <div class="ocean-player__video">
-        <iframe src="https://www.youtube.com/embed/0u3E46BT04E?rel=0&playsinline=1" title="Martin Garrix feat. Khalid - Ocean" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <p>Martin Garrix feat. Khalid · Ocean</p>
+    <div class="ocean-player__disc" aria-hidden="true">♫</div>
+    <div class="ocean-player__meta">
+      <small>NOW PLAYING</small>
+      <span>Ocean · Martin Garrix ft. Khalid</span>
     </div>
+    <button class="ocean-player__play" id="oceanPlayerToggle" type="button" aria-label="Ocean 재생">▶</button>
+    <iframe id="oceanYoutube" src="https://www.youtube.com/embed/0u3E46BT04E?enablejsapi=1&rel=0&playsinline=1" title="Martin Garrix feat. Khalid - Ocean" allow="autoplay; encrypted-media" tabindex="-1"></iframe>
   </aside>
 
 <main class="main-screen">
