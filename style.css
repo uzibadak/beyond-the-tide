@@ -701,7 +701,7 @@ button{font:inherit}
 
 
 /* Main caption spacing fix */
-.entrance-label{margin:30px 0 0!important;position:relative;z-index:2;line-height:1.6}
+.entrance-label{margin:-150px 0 0!important;position:relative;z-index:2;line-height:1.6}
 .since{margin:8px 0 0!important;position:relative;z-index:2}
 @media(max-width:560px){.entrance-label{margin-top:22px!important}}
 
