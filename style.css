@@ -655,3 +655,9 @@ button{font:inherit}
 .ocean-player__note{color:#002097;font-size:14px}.ocean-player__toggle span:nth-child(2){display:flex;flex-direction:column;flex:1}.ocean-player__toggle small{font-size:7px;letter-spacing:.25em;color:#8ba4b2}.ocean-player__toggle b{margin-top:2px;font-size:10px;font-weight:normal;letter-spacing:.18em;color:#002097}.ocean-player__arrow{font-size:11px;transition:transform .3s ease}.ocean-player.open .ocean-player__arrow{transform:rotate(180deg)}
 .ocean-player__body{max-height:0;overflow:hidden;opacity:0;transition:max-height .42s ease,opacity .3s ease}.ocean-player.open .ocean-player__body{max-height:230px;opacity:1}.ocean-player__video{position:relative;width:calc(100% - 20px);margin:0 10px;aspect-ratio:16/9;overflow:hidden;background:#dceef2}.ocean-player__video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.ocean-player__body p{margin:9px 12px 12px;font-size:8px;letter-spacing:.06em;color:#718894}
 @media(max-width:560px){.ocean-player{right:12px;bottom:12px;width:230px}.ocean-player__toggle{padding:9px 11px}}
+
+
+/* Main caption spacing fix */
+.entrance-label{margin:30px 0 0!important;position:relative;z-index:2;line-height:1.6}
+.since{margin:8px 0 0!important;position:relative;z-index:2}
+@media(max-width:560px){.entrance-label{margin-top:22px!important}}
