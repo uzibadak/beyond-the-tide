@@ -30,8 +30,40 @@ async function waterSwitch(changeView, destination){
 function showMenu(){ overlay.classList.add("open"); overlay.setAttribute("aria-hidden","false"); }
 function hideMenu(){ overlay.classList.remove("open"); overlay.setAttribute("aria-hidden","true"); }
 
-document.getElementById("windowLink").addEventListener("click", () => waterSwitch(showMenu, overlay));
-document.getElementById("backBtn").addEventListener("click", () => waterSwitch(hideMenu, document.querySelector('.main-screen')));
+// Keep each in-site screen in browser history so the browser Back button
+// returns to the previous screen instead of leaving the website.
+history.replaceState({ dreamView: "home" }, "", location.pathname + location.search);
+
+function pushDreamView(view){
+  history.pushState({ dreamView: view }, "", "#" + view);
+}
+
+function exactView(view){
+  closeProfile();
+  closeContact();
+  closeGallery();
+
+  if(view === "home"){
+    hideMenu();
+    return document.querySelector(".main-screen");
+  }
+
+  showMenu();
+  if(view === "profile"){ openProfile(); return profilePage; }
+  if(view === "contact"){ openContact(); return contactPage; }
+  if(view === "gallery"){ openGallery(); return galleryPage; }
+  return overlay;
+}
+
+function goBackInsideSite(){
+  history.back();
+}
+
+document.getElementById("windowLink").addEventListener("click", () => {
+  pushDreamView("menu");
+  waterSwitch(showMenu, overlay);
+});
+document.getElementById("backBtn").addEventListener("click", goBackInsideSite);
 
 // PROFILE
 const profilePage = document.getElementById("profilePage");
@@ -39,8 +71,11 @@ const profileButton = document.querySelector('[data-menu="profile"]');
 const profileBack = document.getElementById("profileBack");
 function openProfile(){ profilePage.classList.add("open"); profilePage.setAttribute("aria-hidden","false"); profilePage.scrollTop=0; }
 function closeProfile(){ profilePage.classList.remove("open"); profilePage.setAttribute("aria-hidden","true"); }
-profileButton.addEventListener("click", () => waterSwitch(openProfile, profilePage));
-profileBack.addEventListener("click", () => waterSwitch(closeProfile, overlay));
+profileButton.addEventListener("click", () => {
+  pushDreamView("profile");
+  waterSwitch(openProfile, profilePage);
+});
+profileBack.addEventListener("click", goBackInsideSite);
 
 // FOR YOU
 const contactPage = document.getElementById("contactPage");
@@ -48,8 +83,11 @@ const contactButton = document.querySelector('[data-menu="story"]');
 const contactBack = document.getElementById("contactBack");
 function openContact(){ contactPage.classList.add("open"); contactPage.setAttribute("aria-hidden","false"); contactPage.scrollTop=0; }
 function closeContact(){ contactPage.classList.remove("open"); contactPage.setAttribute("aria-hidden","true"); }
-contactButton.addEventListener("click", () => waterSwitch(openContact, contactPage));
-contactBack.addEventListener("click", () => waterSwitch(closeContact, overlay));
+contactButton.addEventListener("click", () => {
+  pushDreamView("contact");
+  waterSwitch(openContact, contactPage);
+});
+contactBack.addEventListener("click", goBackInsideSite);
 
 // CAPTURE
 const galleryPage = document.getElementById("galleryPage");
@@ -64,8 +102,23 @@ let visibleGalleryItems = galleryItems;
 let currentGalleryIndex = 0;
 function openGallery(){ galleryPage.classList.add("open"); galleryPage.setAttribute("aria-hidden","false"); galleryPage.scrollTop=0; }
 function closeGallery(){ galleryPage.classList.remove("open"); galleryPage.setAttribute("aria-hidden","true"); }
-galleryButton.addEventListener("click", () => waterSwitch(openGallery, galleryPage));
-galleryBack.addEventListener("click", () => waterSwitch(closeGallery, overlay));
+galleryButton.addEventListener("click", () => {
+  pushDreamView("gallery");
+  waterSwitch(openGallery, galleryPage);
+});
+galleryBack.addEventListener("click", goBackInsideSite);
+
+window.addEventListener("popstate", (event) => {
+  const view = event.state?.dreamView || "home";
+  const destination =
+    view === "profile" ? profilePage :
+    view === "contact" ? contactPage :
+    view === "gallery" ? galleryPage :
+    view === "menu" ? overlay :
+    document.querySelector(".main-screen");
+
+  waterSwitch(() => exactView(view), destination);
+});
 
 galleryFilters.forEach(btn => btn.addEventListener('click', () => {
   galleryFilters.forEach(b => b.classList.remove('active')); btn.classList.add('active');
@@ -98,8 +151,8 @@ document.addEventListener("keydown", (e) => {
     return;
   }
   if(e.key !== "Escape" || transitionBusy) return;
-  if(galleryPage.classList.contains("open")) waterSwitch(closeGallery, overlay);
-  else if(contactPage.classList.contains("open")) waterSwitch(closeContact, overlay);
-  else if(profilePage.classList.contains("open")) waterSwitch(closeProfile, overlay);
-  else if(overlay.classList.contains("open")) waterSwitch(hideMenu, document.querySelector('.main-screen'));
+  if(galleryPage.classList.contains("open") ||
+     contactPage.classList.contains("open") ||
+     profilePage.classList.contains("open") ||
+     overlay.classList.contains("open")) goBackInsideSite();
 });
