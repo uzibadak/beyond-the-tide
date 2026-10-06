@@ -1,0 +1,650 @@
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;background:#fff;color:#777}
+body{font-family:Georgia,"Times New Roman",serif}
+button{font:inherit}
+
+.main-screen{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  background-color:#fff;
+  background-image:url("images/shadow.png");
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+}
+
+/* 아주 옅은 오후 햇빛 */
+.sunlight{
+  position:absolute;
+  inset:-12%;
+  z-index:-3;
+  pointer-events:none;
+  background:
+    linear-gradient(118deg, transparent 0 29%, rgba(255,224,216,.20) 36%, transparent 46%),
+    linear-gradient(118deg, transparent 0 57%, rgba(255,230,224,.16) 63%, transparent 72%),
+    radial-gradient(ellipse at 53% 48%, rgba(255,222,218,.20), transparent 42%);
+  filter:blur(10px);
+}
+
+/* 벽에 비치는 창틀 + 커튼 그림자 */
+.window-shadow{
+  position:absolute;
+  left:-4vw;
+  top:5vh;
+  width:48vw;
+  height:75vh;
+  z-index:-2;
+  pointer-events:none;
+  opacity:.15;
+  transform:rotate(-7deg) skewY(-2deg);
+  filter:blur(7px);
+  background:
+    linear-gradient(90deg, transparent 0 18%, rgba(130,115,137,.30) 18% 20%, transparent 20% 47%, rgba(130,115,137,.24) 47% 49%, transparent 49%),
+    linear-gradient(0deg, transparent 0 35%, rgba(130,115,137,.25) 35% 38%, transparent 38% 70%, rgba(130,115,137,.20) 70% 73%, transparent 73%);
+}
+.window-shadow:after{
+  content:"";
+  position:absolute;
+  left:3%;
+  bottom:4%;
+  width:50%;
+  height:42%;
+  border-radius:50%;
+  background:radial-gradient(ellipse at 40% 50%, rgba(125,112,132,.22), transparent 64%);
+  transform:rotate(18deg);
+}
+
+.prism{position:absolute;z-index:-1;pointer-events:none;opacity:.16;filter:blur(12px);transform:rotate(-25deg);background:linear-gradient(90deg,rgba(255,174,206,.65),rgba(255,223,169,.55),rgba(182,219,255,.55),rgba(224,188,255,.45));}
+.prism-one{left:8vw;bottom:12vh;width:150px;height:16px}
+.prism-two{right:10vw;top:15vh;width:110px;height:12px;opacity:.10}
+
+
+.window-link{
+  border:0;
+  padding:0;
+  background:transparent;
+  cursor:pointer;
+}
+
+.window-image{
+  position:relative;
+  width:min(1100px,75vw);
+  aspect-ratio:4/3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.window-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.placeholder{
+  display:none;
+  width:100%;
+  height:100%;
+  border:1px dashed #e7dfe2;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:9px;
+  color:#c7b8bd;
+  letter-spacing:.18em;
+  font-size:12px;
+}
+
+.placeholder small{
+  font-size:10px;
+  letter-spacing:.08em;
+  color:#d5c9cd;
+}
+
+.window-image.empty .placeholder{display:flex}
+
+.enter-text{
+  margin:22px 0 0;
+  color:#c7b9be;
+  font-size:11px;
+  font-style:italic;
+  letter-spacing:.18em;
+}
+
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  /* 여기에 직접 만든 메뉴 배경을 넣으면 됩니다.
+     images/menu-bg.png 파일만 교체하면 돼요. */
+  background-color:#fff;
+  background-image:url("images/menu-bg.png");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .55s ease;
+}
+
+.menu-overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* 중앙 메뉴 묶음: 작고 조밀하게, 빛의 중심보다 살짝 위 */
+.menu-sheet{
+  position:relative;
+  z-index:2;
+  width:min(480px,72vw);
+  text-align:center;
+  color:#8f8589;
+  transform:translateY(-22px);
+}
+
+.menu-heading{
+  margin-bottom:31px;
+  transform:translate(-35px, -15px);
+}
+
+.menu-overline{
+  margin:0 0 8px;
+  color:#c9bec2;
+  font-size:8px;
+  letter-spacing:.42em;
+}
+
+.menu-heading h1{
+  margin-bottom:31px;
+  margin:0;
+  color:#8d7d84;
+  font-size:29px;
+  line-height:1;
+  font-weight:normal;
+  font-style:italic;
+  letter-spacing:.03em;
+}
+
+.menu-subtitle{
+  margin:8px 0 0;
+  color:#c2b7bb;
+  font-size:10px;
+  font-style:italic;
+  letter-spacing:.10em;
+}
+
+.menu-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  column-gap:40px;
+  row-gap:28px;
+}
+
+.menu-card{
+  position:relative;
+  min-height:76px;
+  padding:6px 12px 13px;
+  border:0;
+  background:transparent;
+  color:#9b9094;
+  cursor:pointer;
+  text-align:left;
+}
+
+.menu-no{
+  display:block;
+  margin-bottom:4px;
+  color:#e3aabd;
+  font-size:9px;
+  letter-spacing:.22em;
+}
+
+.menu-name{
+  display:block;
+  color:#8e8387;
+  font-size:11px;
+  letter-spacing:.31em;
+  transition:color .25s ease;
+}
+
+.menu-desc{
+  display:block;
+  margin-top:5px;
+  color:#c4b9bd;
+  font-size:9px;
+  font-style:italic;
+  letter-spacing:.08em;
+}
+
+.menu-rule{
+  position:absolute;
+  left:12px;
+  right:12px;
+  bottom:0;
+  height:1px;
+  background:linear-gradient(90deg,#efc5d0,rgba(239,197,208,.12));
+}
+
+.menu-card:nth-child(even) .menu-no{color:#9fc2dc}
+.menu-card:nth-child(even) .menu-rule{
+  background:linear-gradient(90deg,#b8d2e5,rgba(184,210,229,.12));
+}
+
+.menu-card:hover .menu-name{color:#df8fac}
+.menu-card:nth-child(even):hover .menu-name{color:#6e9fc4}
+
+.menu-couple{
+  transform:translate(-35px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:13px;
+  margin:33px 0 0;
+  color:#b8aeb2;
+  font-size:9px;
+  letter-spacing:.30em;
+  white-space:nowrap;
+}
+.menu-couple span{
+  display:block;
+  width:18px;
+  height:1px;
+  background:#efb8c5;
+}
+
+.back{
+  position:absolute;
+  z-index:3;
+  left:34px;
+  bottom:52px;
+  border:0;
+  background:transparent;
+  color:#bdb2b6;
+  cursor:pointer;
+  font-size:9px;
+  letter-spacing:.18em;
+  transition:color .2s ease;
+}
+.back:hover{color:#df9eb3}
+
+.menu-since,.menu-archive-mark{
+  position:absolute;
+  z-index:3;
+  bottom:28px;
+  margin:0;
+  color:#c6bdc0;
+  font-size:8px;
+  letter-spacing:.30em;
+}
+.menu-since{left:34px}
+.menu-archive-mark{
+  right:34px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.menu-archive-mark span{
+  display:block;
+  width:26px;
+  height:1px;
+  background:#d9cfd2;
+}
+
+@media(max-width:600px){
+  .window-image{width:76vw}
+}
+
+/* 창문 아래의 작은 장식 텍스트 */
+.entrance-label{
+  position:absolute;
+  left:50%;
+  bottom:260px;
+  transform:translateX(-47%);
+  display:flex;
+  align-items:center;
+  gap:13px;
+  margin:0;
+  color:#b8aeb2;
+  font-size:10px;
+  letter-spacing:.36em;
+  white-space:nowrap;
+}
+.entrance-label span{width:18px;height:1px;background:#efb8c5;display:block}
+.since,.archive-mark{position:absolute;bottom:28px;margin:0;color:#c6bdc0;font-size:9px;letter-spacing:.30em}
+.since{left:34px}.archive-mark{right:34px;display:flex;align-items:center;gap:12px}.archive-mark span{display:block;width:26px;height:1px;background:#d9cfd2}
+
+@media(max-width:600px){
+  .window-shadow{width:75vw;height:55vh;opacity:.11}
+  .entrance-label{top:calc(50% + 30vw);font-size:8px}
+  .since,.archive-mark{font-size:7px;bottom:18px}
+  .since{left:18px}.archive-mark{right:18px}
+}
+
+
+@media(max-width:600px){
+  .menu-sheet{width:82vw}
+  .menu-heading{margin-bottom:34px}
+  .menu-heading h1{font-size:29px}
+  .menu-grid{column-gap:24px;row-gap:28px}
+  .menu-card{padding-left:8px;padding-right:8px;min-height:82px}
+  .menu-rule{left:8px;right:8px}
+  .menu-name{font-size:11px;letter-spacing:.22em}
+  .menu-desc{font-size:8px}
+  .menu-couple{margin-top:36px;font-size:7px;letter-spacing:.22em}
+  .back{left:18px;bottom:42px;font-size:8px}
+  .menu-since,.menu-archive-mark{bottom:18px;font-size:7px}
+  .menu-since{left:18px}.menu-archive-mark{right:18px}
+}
+
+
+/* =========================================================
+   PROFILE — CHOI WOLHWA
+   배경은 images/profile-bg.png, 캐릭터는 images/wolhwa.png 교체
+   ========================================================= */
+.profile-page{
+  position:fixed;
+  inset:0;
+  z-index:20;
+  overflow-y:auto;
+  background-color:#fbfdff;
+  background-image:url("images/profile-bg.png");
+  background-size:cover;
+  background-position:center top;
+  background-attachment:fixed;
+  background-repeat:no-repeat;
+  color:#777d83;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .45s ease, visibility .45s ease;
+}
+.profile-page.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.profile-topbar{
+  position:absolute;
+  top:30px;
+  left:34px;
+  right:34px;
+  z-index:2;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.profile-topbar p{
+  margin:0;
+  color:#aab4bd;
+  font-size:8px;
+  letter-spacing:.34em;
+}
+.profile-topbar p span{color:#e2a7b9}
+.profile-back{
+  border:0;
+  padding:0;
+  background:transparent;
+  color:#aeb7bd;
+  cursor:pointer;
+  font-size:9px;
+  letter-spacing:.18em;
+}
+.profile-back:hover{color:#dd9db1}
+
+.profile-hero{
+  width:min(1050px,86vw);
+  min-height:100vh;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(300px,1.05fr) minmax(300px,.95fr);
+  gap:72px;
+  align-items:center;
+  padding:95px 0 80px;
+}
+.profile-art{
+  position:relative;
+  min-height:650px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+.profile-art img{
+  width:100%;
+  max-height:76vh;
+  object-fit:contain;
+  object-position:center bottom;
+  filter:drop-shadow(0 18px 35px rgba(80,112,135,.08));
+}
+.profile-placeholder{
+  width:78%;
+  aspect-ratio:3/4;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:10px;
+  border:1px solid rgba(154,187,207,.30);
+  background:rgba(255,255,255,.34);
+  color:#9fb4c2;
+  font-size:11px;
+  letter-spacing:.30em;
+}
+.profile-art.empty .profile-placeholder{display:flex}
+.profile-placeholder small{
+  color:#c0cbd1;
+  font-size:9px;
+  letter-spacing:.08em;
+}
+
+.profile-intro{padding-right:20px}
+.profile-kicker{
+  margin:0 0 12px;
+  color:#ffffff;
+  font-size:8px;
+  letter-spacing:.42em;
+}
+.profile-intro h2{
+  margin:0;
+  color:#000000;
+  font-size:38px;
+  font-weight:normal;
+  letter-spacing:.12em;
+}
+.profile-korean{
+  margin:8px 0 0;
+  color:#000000;
+  font-size:12px;
+  letter-spacing:.48em;
+}
+.profile-small-rule{
+  width:48px;
+  height:1px;
+  margin:28px 0 30px;
+  background:#0328b2;
+}
+.profile-facts{margin:0}
+.profile-facts div{
+  display:grid;
+  grid-template-columns:92px 1fr;
+  gap:18px;
+  padding:9px 0;
+  border-bottom:1px solid rgba(157,183,199,.18);
+}
+.profile-facts dt{
+  color:#000000;
+  font-size:8px;
+  letter-spacing:.28em;
+}
+.profile-facts dd{
+  margin:0;
+  color:#000000;
+  font-size:11px;
+  letter-spacing:.06em;
+}
+.profile-quote{
+  margin:34px 0 0;
+  color:#8e959a;
+  font-size:13px;
+  line-height:2;
+  font-style:italic;
+}
+
+.profile-details{
+  width:min(850px,78vw);
+  margin:-150px auto 0;
+  padding:80px 0 120px;
+}
+.profile-section{
+  position:relative;
+  padding:28px 0 42px;
+  border-top:1px solid rgba(145,177,197,.24);
+}
+.section-no{
+  margin:0 0 9px;
+  color:#002097;
+  font-size:8px;
+  letter-spacing:.24em;
+}
+.profile-section h3{
+  margin:0 0 18px;
+  color:#000000;
+  font-size:11px;
+  font-weight:normal;
+  letter-spacing:.34em;
+}
+.profile-section > p:not(.section-no):not(.relationship-name){
+  max-width:690px;
+  margin:0;
+  color:#000000;
+  font-size:11px;
+  line-height:2.05;
+  letter-spacing:.03em;
+}
+.profile-two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+}
+.mini-columns{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+.mini-columns b{
+  color:#002097;
+  font-size:8px;
+  font-weight:normal;
+  letter-spacing:.22em;
+}
+.mini-columns p{
+  margin:9px 0 0;
+  color:#858d92;
+  font-size:10px;
+  line-height:1.9;
+}
+.symbols{
+  margin-bottom:10px !important;
+  color:#002097 !important;
+  font-style:italic;
+  letter-spacing:.13em !important;
+}
+.relationship{text-align:center}
+.relationship .section-no,
+.relationship h3{text-align:center}
+.relationship-name{
+  margin:4px 0 16px;
+  color:#8198a8;
+  font-size:13px;
+  letter-spacing:.22em;
+}
+.relationship-name span{
+  padding:0 10px;
+  color:#e0a5b7;
+}
+.relationship > p:last-child{margin:0 auto !important}
+
+.profile-footer{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:24px 34px 28px;
+  border-top:1px solid rgba(154,183,201,.18);
+  color:#aebbc3;
+  font-size:8px;
+  letter-spacing:.18em;
+}
+.profile-footer p{margin:0;font-style:italic}
+.profile-footer span{letter-spacing:.28em}
+
+@media(max-width:760px){
+  .profile-topbar{left:18px;right:18px;top:20px}
+  .profile-hero{
+    width:84vw;
+    grid-template-columns:1fr;
+    gap:24px;
+    padding-top:90px;
+  }
+  .profile-art{min-height:420px}
+  .profile-art img{max-height:58vh}
+  .profile-intro{padding:0 0 50px}
+  .profile-intro h2{font-size:28px}
+  .profile-details{width:84vw;padding-top:30px}
+  .profile-two-col{grid-template-columns:1fr;gap:0}
+  .profile-footer{padding-left:18px;padding-right:18px;gap:20px}
+}
+
+/* =========================================================
+   FOR YOU — PRIVATE BOT RECRUITMENT / CONTACT
+   ========================================================= */
+.contact-page{
+  position:fixed; inset:0; z-index:20; overflow-y:auto;
+  background-color:#fbfdff;
+  background-image:linear-gradient(rgba(251,253,255,.18),rgba(251,253,255,.38)),url("images/profile-bg.png");
+  background-size:cover; background-position:center top; background-attachment:fixed;
+  color:#606970; opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .45s ease,visibility .45s ease;
+}
+.contact-page.open{opacity:1;visibility:visible;pointer-events:auto}
+.contact-topbar{position:absolute;top:30px;left:34px;right:34px;z-index:2;display:flex;justify-content:space-between;align-items:center}
+.contact-topbar p{margin:0;color:#aab4bd;font-size:10px;letter-spacing:.34em}.contact-topbar p span{color:#e2a7b9}
+.contact-back{border:0;padding:0;background:transparent;color:#aeb7bd;cursor:pointer;font-size:10px;letter-spacing:.18em}.contact-back:hover{color:#dd9db1}
+.contact-hero{min-height:72vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:100px 24px 70px}
+.contact-overline{margin:0 0 18px;color:#7f9db2;font-size:10px;letter-spacing:.42em}
+.contact-hero h2{margin:0;color:#000000;font-size:42px;font-weight:normal;letter-spacing:.14em}
+.contact-lead{margin:18px 0 0;color:#000000;font-size:14px;font-style:italic;letter-spacing:.06em}
+.contact-rule{width:42px;height:1px;margin:30px 0 22px;background:#002097}.contact-ko{margin:0;color:#6f7b83;font-size:12px;letter-spacing:.28em}
+.contact-content{width:min(900px,78vw);margin:-55px auto 0;padding:0 0 120px}
+.contact-section{padding:54px 0 66px;border-top:1px solid rgba(145,177,197,.28)}
+.contact-heading{display:flex;gap:18px;align-items:flex-start;margin-bottom:32px}.contact-heading.align-right{justify-content:flex-end;text-align:right}.contact-heading.centered{justify-content:center;text-align:center}
+.contact-no{margin:3px 0 0;color:#002097;font-size:10px;letter-spacing:.24em}.contact-heading h3{margin:0;color:#111;font-size:15px;font-weight:normal;letter-spacing:.34em}.contact-heading span{display:block;margin-top:8px;color:#9aa6ae;font-size:11px;letter-spacing:.16em}
+.contact-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px}.contact-copy{margin:0;color:#15191c;font-size:13px;line-height:2.15;letter-spacing:.03em}
+.contact-list{margin:0}.contact-list div{display:grid;grid-template-columns:90px 1fr;gap:18px;padding:10px 0;border-bottom:1px solid rgba(157,183,199,.18)}.contact-list dt{color:#002097;font-size:10px;letter-spacing:.22em}.contact-list dd{margin:0;color:#555f66;font-size:12px;line-height:1.8}
+.contact-note{width:76%;margin:38px 0 0;padding:16px 20px;border-left:1px solid #e2a7b9;background:rgba(255,255,255,.28);color:#7d878e;font-size:12px;line-height:1.9;font-style:italic}
+.wish-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 64px}.wish-grid section{padding:0 0 25px;border-bottom:1px solid rgba(157,183,199,.18)}.wish-grid b{color:#002097;font-size:10px;font-weight:normal;letter-spacing:.25em}.wish-grid p{margin:12px 0 0;color:#20272c;font-size:12px;line-height:2;letter-spacing:.02em}
+.contact-zone{text-align:center}.contact-invite{margin:0 auto;color:#20272c;font-size:13px;line-height:2.1}.contact-links{width:min(560px,100%);margin:38px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:24px}.contact-links div{padding:22px 18px;border-top:1px solid rgba(145,177,197,.35);border-bottom:1px solid rgba(145,177,197,.18)}.contact-links span{display:block;color:#002097;font-size:10px;letter-spacing:.22em}.contact-links strong{display:block;margin-top:10px;color:#59656d;font-size:13px;font-weight:normal;letter-spacing:.08em}
+.contact-ending{margin:52px 0 0;color:#8c9ca7;font-size:15px;font-style:italic;letter-spacing:.08em}.contact-footer{background:rgba(255,255,255,.18)}
+.about-me-checklist{margin:52px auto 0;width:min(100%,1100px)}
+.checklist-label{margin:0 0 14px;color:#002097;font-size:10px;letter-spacing:.24em}
+.about-me-checklist img{display:block;width:100%;height:auto;object-fit:contain;box-shadow:0 10px 34px rgba(22,54,75,.08)}
+@media(max-width:760px){.contact-topbar{left:18px;right:18px;top:20px}.contact-hero{min-height:62vh}.contact-hero h2{font-size:28px}.contact-content{width:84vw;margin:-20px auto 0;padding-bottom:70px}.contact-grid,.wish-grid,.contact-links{grid-template-columns:1fr;gap:24px}.contact-heading.align-right{justify-content:flex-start;text-align:left}.contact-note{width:100%}.contact-section{padding:42px 0 50px}}
+
+.contact-me-link{display:block;margin-top:10px;color:#59656d;font-size:13px;font-weight:normal;letter-spacing:.08em;text-decoration:none;transition:color .2s ease,opacity .2s ease}.contact-me-link:hover{color:#002097;opacity:.72}
+
+/* =========================================================
+   CAPTURE — MASONRY GALLERY
+   Add photos to images/gallery and replace each placeholder div with:
+   <img src="images/gallery/01.jpg" alt="">
+   ========================================================= */
+.gallery-page{position:fixed;inset:0;z-index:22;overflow-y:auto;background-color:#fbfdff;background-image:linear-gradient(rgba(251,253,255,.24),rgba(251,253,255,.5)),url("images/profile-bg.png");background-size:cover;background-position:center top;background-attachment:fixed;color:#606970;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s ease,visibility .45s ease}.gallery-page.open{opacity:1;visibility:visible;pointer-events:auto}.gallery-topbar{position:absolute;top:30px;left:34px;right:34px;z-index:2;display:flex;justify-content:space-between;align-items:center}.gallery-topbar p{margin:0;color:#aab4bd;font-size:10px;letter-spacing:.34em}.gallery-topbar p span{color:#e2a7b9}.gallery-back{border:0;padding:0;background:transparent;color:#aeb7bd;cursor:pointer;font-size:10px;letter-spacing:.18em}.gallery-back:hover{color:#dd9db1}.gallery-hero{text-align:center;padding:120px 24px 62px}.gallery-overline{margin:0 0 15px!important;color:#7f9db2!important;font-size:9px!important;letter-spacing:.42em!important}.gallery-hero h2{margin:0;color:#111827;font-size:40px;font-weight:normal;letter-spacing:.18em}.gallery-hero>p:last-child{margin:17px 0 0;color:#8b98a1;font-size:13px;font-style:italic;letter-spacing:.05em}.gallery-wrap{width:min(1120px,86vw);margin:0 auto;padding-bottom:110px}.gallery-filters{display:flex;justify-content:center;gap:28px;margin:0 0 42px;padding:17px 0;border-top:1px solid rgba(145,177,197,.25);border-bottom:1px solid rgba(145,177,197,.18)}.gallery-filters button{border:0;background:none;padding:4px 2px;color:#9aa7af;font-size:9px;letter-spacing:.24em;cursor:pointer;transition:.2s}.gallery-filters button:hover,.gallery-filters button.active{color:#002097}.gallery-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 20px}.gallery-item{position:relative;margin:0;overflow:hidden;aspect-ratio:4 / 5;background:rgba(255,255,255,.55);box-shadow:0 8px 28px rgba(26,61,83,.06);cursor:pointer}.gallery-item img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}.gallery-placeholder{height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,rgba(221,236,244,.7),rgba(247,225,234,.55));color:#91a7b5}.gallery-item.tall .gallery-placeholder{height:420px}.gallery-item.wide .gallery-placeholder{height:220px}.gallery-placeholder span{font-family:serif;font-size:32px;font-style:italic;color:rgba(0,32,151,.35)}.gallery-placeholder small{margin-top:8px;font-size:8px;letter-spacing:.12em}.gallery-item figcaption{position:absolute;inset:auto 0 0;padding:42px 20px 18px;background:linear-gradient(transparent,rgba(10,25,38,.64));color:white;opacity:0;transform:translateY(8px);transition:.3s}.gallery-item:hover figcaption{opacity:1;transform:none}.gallery-item figcaption span{font-size:8px;letter-spacing:.22em}.gallery-item figcaption p{margin:7px 0 0;font-size:11px;font-style:italic;letter-spacing:.04em}.gallery-item.is-hidden{display:none}.gallery-ending{text-align:center;margin:70px 0 0;color:#8c9ca7;font-size:14px;font-style:italic;letter-spacing:.08em}.gallery-footer{background:rgba(255,255,255,.2)}.gallery-lightbox{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(7,17,28,.88);opacity:0;visibility:hidden;pointer-events:none;transition:.3s}.gallery-lightbox.open{opacity:1;visibility:visible;pointer-events:auto}.lightbox-inner{max-width:min(84vw,1100px);max-height:86vh;text-align:center}.lightbox-inner img{display:block;max-width:100%;max-height:76vh;margin:auto;object-fit:contain}.lightbox-inner div{margin-top:14px;color:#e7edf1;font-size:11px;line-height:1.8;letter-spacing:.06em}.gallery-lightbox>button{position:absolute;border:0;background:none;color:white;cursor:pointer}.gallery-lightbox #lightboxClose{top:22px;right:30px;font-size:30px;font-weight:200}.lightbox-nav{top:50%;font-size:42px;transform:translateY(-50%);opacity:.7}.lightbox-nav.prev{left:28px}.lightbox-nav.next{right:28px}
+@media(max-width:850px){.gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 16px}.gallery-wrap{width:88vw}}@media(max-width:560px){.gallery-topbar{left:18px;right:18px;top:20px}.gallery-hero{padding-top:95px}.gallery-hero h2{font-size:29px}.gallery-grid{grid-template-columns:1fr}.gallery-filters{gap:16px}.gallery-item figcaption{opacity:1;transform:none}.gallery-wrap{width:84vw}.lightbox-nav{font-size:32px}.lightbox-nav.prev{left:8px}.lightbox-nav.next{right:8px}}
+\n\n/* =========================================================\n   PAGE TRANSITION — sinking beneath / rising through water\n   ========================================================= */\n.water-transition{\n  position:fixed;inset:0;z-index:9999;pointer-events:none;\n  opacity:0;visibility:hidden;\n  background:\n    radial-gradient(ellipse at 50% -8%,rgba(255,255,255,.72) 0%,rgba(196,237,245,.34) 25%,transparent 52%),\n    linear-gradient(180deg,rgba(189,235,243,.18) 0%,rgba(79,177,202,.48) 46%,rgba(15,79,119,.78) 100%);\n  backdrop-filter:blur(0px);\n  -webkit-backdrop-filter:blur(0px);\n}\n.water-transition::before{\n  content:"";position:absolute;inset:-12%;\n  background:radial-gradient(ellipse at 50% 10%,rgba(255,255,255,.45),transparent 42%);\n  transform:translateY(-12%);opacity:0;\n}\n.water-transition .water-glow{\n  position:absolute;left:-10%;right:-10%;top:-18%;height:45%;\n  background:linear-gradient(180deg,rgba(255,255,255,.52),rgba(213,247,250,.16),transparent);\n  filter:blur(16px);opacity:0;transform:translateY(-20%);\n}\n.water-transition.diving{visibility:visible;animation:waterDive .44s cubic-bezier(.42,0,.58,1) forwards}\n.water-transition.diving::before{animation:waterVeilIn .44s ease forwards}\n.water-transition.diving .water-glow{animation:waterGlowIn .44s ease forwards}\n.water-transition.rising{visibility:visible;animation:waterRise .58s cubic-bezier(.2,.72,.25,1) forwards}\n.water-transition.rising::before{animation:waterVeilOut .58s ease forwards}\n.water-transition.rising .water-glow{animation:waterGlowOut .58s ease forwards}\n@keyframes waterDive{0%{opacity:0;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0)}100%{opacity:1;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}}\n@keyframes waterRise{0%{opacity:1;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}100%{opacity:0;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0)}}\n@keyframes waterVeilIn{0%{opacity:0;transform:translateY(-12%)}100%{opacity:.8;transform:translateY(10%)}}\n@keyframes waterVeilOut{0%{opacity:.8;transform:translateY(10%)}100%{opacity:0;transform:translateY(-18%)}}\n@keyframes waterGlowIn{0%{opacity:0;transform:translateY(-20%)}100%{opacity:.8;transform:translateY(28%)}}\n@keyframes waterGlowOut{0%{opacity:.8;transform:translateY(28%)}100%{opacity:0;transform:translateY(-18%)}}\n\n/* The destination gently floats upward as it appears. */\n.profile-page.water-arrive.open,.contact-page.water-arrive.open,.gallery-page.water-arrive.open,.menu-overlay.water-arrive.open{animation:pageFloatUp .72s cubic-bezier(.2,.72,.25,1) both}\n@keyframes pageFloatUp{0%{transform:translateY(18px);filter:blur(3px)}100%{transform:translateY(0);filter:blur(0)}}\n@media(prefers-reduced-motion:reduce){\n  .water-transition,.water-transition::before,.water-transition .water-glow,.profile-page.water-arrive.open,.contact-page.water-arrive.open,.gallery-page.water-arrive.open,.menu-overlay.water-arrive.open{animation-duration:.01ms!important}\n}\n

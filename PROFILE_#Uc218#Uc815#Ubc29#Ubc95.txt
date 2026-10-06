@@ -1,0 +1,23 @@
+PROFILE 수정 포인트
+
+1) 캐릭터 이미지
+   images/wolhwa.png
+   → 월화 전신/반신 PNG를 이 이름으로 넣으면 자동 적용됩니다.
+   → 배경이 투명한 PNG 추천.
+
+2) 프로필 배경
+   images/profile-bg.png
+   → 직접 만든 배경 그림으로 덮어쓰면 됩니다.
+   → 권장 1920x1080 이상.
+   → 현재 CSS는 cover / center top / fixed 입니다.
+
+3) 프로필 내용
+   index.html에서 아래 항목을 검색해서 수정하세요.
+   CHOI WOLHWA / BIRTH / HEIGHT / KEYWORD
+   PERSONALITY / LIKE & DISLIKE / SYMBOL / RELATIONSHIP
+
+4) 동작
+   MENU의 Profile 클릭 → 월화 프로필 페이지
+   프로필의 ← back → 바닷속 MENU로 복귀
+
+기존 ENTRY와 MENU 디자인/문구/배경 이미지는 그대로 보존했습니다.

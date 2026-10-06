@@ -8,79 +8,86 @@
 <body>
   <main class="main-screen">
     <div class="sunlight" aria-hidden="true"></div>
-
-    <section class="hero">
-      <div class="window-wrap" id="windowWrap" role="button" tabindex="0" aria-label="Enter">
-        <img class="window-img" src="images/window.png" alt="curtain and sea window">
-        <div class="prism" aria-hidden="true"></div>
+    <div class="window-shadow" aria-hidden="true"></div>
+    <div class="prism prism-one" aria-hidden="true"></div>
+    <div class="prism prism-two" aria-hidden="true"></div>
+    <!--
+      ★ 여기에 준비한 핑크 바다 창문 이미지를 넣으면 됩니다.
+      파일명을 window.png 로 바꿔 images 폴더 안에 넣어주세요.
+    -->
+    <button class="window-link" id="windowLink" aria-label="홈페이지 들어가기">
+      <div class="window-image">
+        <img src="images/window.png" alt="커튼이 휘날리는 핑크 바다 창문"
+             onerror="this.style.display='none'; this.parentElement.classList.add('empty');">
+        <div class="placeholder">
+          <span>YOUR WINDOW IMAGE</span>
+          <small>images/window.png</small>
+        </div>
       </div>
+    </button>
 
-      <p class="enter-label">Somewhere beyond the tide</p>
-
-      <div class="names">
-        <span>Ki Wook</span>
-        <i>×</i>
-        <span>Choi Wolhwa</span>
-      </div>
-      <p class="since">since 2026 · dream archive</p>
-    </section>
+    <p class="entrance-label"><span></span> Ki Wook / Choi Wolhwa  <span></span></p>
+    <p class="since">since 2026</p>
   </main>
 
-  <section class="menu-screen" id="menuScreen" aria-hidden="true">
-    <div class="menu-bg" aria-hidden="true"></div>
-    <div class="menu-vignette" aria-hidden="true"></div>
+  <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+<section class="menu-sheet">
+      <header class="menu-heading">
+        <p class="menu-overline">Love & Deepspace</p>
+        <h1>🐟</h1>
+        <p class="menu-subtitle">somewhere beyond the tide</p>
+      </header>
 
-    <header class="menu-header">
-      <div>
-        <p class="menu-eyebrow">DREAM ARCHIVE</p>
-        <h1>Our Story</h1>
-      </div>
-      <p class="menu-subtitle">somewhere beyond the tide</p>
-    </header>
+      <nav class="menu-grid" aria-label="메인 메뉴">
+        <button class="menu-card" data-menu="profile">
+          <span class="menu-no">Profile</span>
+          <span class="menu-name">🌕</span>
+          <span class="menu-desc">당신의 사랑과</span>
+          <span class="menu-rule"></span>
+        </button>
 
-    <nav class="menu-grid">
-      <button class="menu-card" data-menu="profile">
-        <span class="menu-no">01</span>
-        <span class="menu-title">PROFILE</span>
-        <span class="menu-desc">about our dream</span>
-      </button>
+        <button class="menu-card" data-menu="story">
+          <span class="menu-no">For You</span>
+          <span class="menu-name">🦐</span>
+          <span class="menu-desc">기다림을 기억해요.</span>
+          <span class="menu-rule"></span>
+        </button>
 
-      <button class="menu-card" data-menu="foryou">
-        <span class="menu-no">02</span>
-        <span class="menu-title">FOR YOU</span>
-        <span class="menu-desc">a little note for you</span>
-      </button>
+        <button class="menu-card" data-menu="gallery">
+          <span class="menu-no">Capture</span>
+          <span class="menu-name">🎨</span>
+          <span class="menu-desc">추억은 영원히 남아</span>
+          <span class="menu-rule"></span>
+        </button>
 
-      <button class="menu-card" data-menu="capture">
-        <span class="menu-no">03</span>
-        <span class="menu-title">CAPTURE</span>
-        <span class="menu-desc">our moments</span>
-      </button>
+        <button class="menu-card" data-menu="archive">
+          <span class="menu-no">개인봇님 구인 후 오픈 예정</span>
+          <span class="menu-name">🧜‍♂️</span>
+          <span class="menu-desc">시간의 색채가 되었다</span>
+          <span class="menu-rule"></span>
+        </button>
+      </nav>
 
-      <button class="menu-card" data-menu="commission">
-        <span class="menu-no">04</span>
-        <span class="menu-title">COMMISSION</span>
-        <span class="menu-desc">coming soon</span>
-      </button>
-    </nav>
+      <p class="menu-couple"><span></span> Ki Wook × Choi Wolhwa <span></span></p>
+    </section>
 
-    <footer class="menu-footer">
-      <button id="backHome">← return to the window</button>
-      <span>KI WOOK / CHOI WOLHWA</span>
-    </footer>
-  </section>
+    <button class="back" id="backBtn">← back</button>
+    <p class="menu-since">since 2026</p>
+  </div>
+
 
   <section class="profile-page" id="profilePage" aria-hidden="true">
     <div class="profile-topbar">
       <button class="profile-back" id="profileBack">← back</button>
-      <span>CHOI WOLHWA / ORIGINAL CHARACTER</span>
+      <p>PROFILE <span>01</span></p>
     </div>
 
     <div class="profile-hero">
       <div class="profile-art">
-        <img src="images/wolhwa.png" alt="Choi Wolhwa">
+        <img src="images/wolhwa.png" alt="최월화 캐릭터 이미지"
+             onerror="this.style.display='none'; this.parentElement.classList.add('empty');">
         <div class="profile-placeholder">
-          <span>CHARACTER IMAGE</span>
+          <span>CHOI WOLHWA</span>
           <small>images/wolhwa.png</small>
         </div>
       </div>
@@ -92,16 +99,16 @@
         <div class="profile-small-rule"></div>
 
         <dl class="profile-facts">
-          <div><dt>NAME</dt><dd>최월화 / Choi Wolhwa</dd></div>
+          <div><dt>NAME</dt><dd>최월화 · Choi Wolhwa</dd></div>
           <div><dt>BIRTH</dt><dd>07.07</dd></div>
           <div><dt>HEIGHT</dt><dd>166 cm</dd></div>
           <div><dt>EVOL</dt><dd>공명 · 물</dd></div>
-          <div><dt>KEYWORD</dt><dd>울큰음 · 외유내강 · 당찬 · 짓궂은</dd></div>
+          <div><dt>KEYWORD</dt><dd>올곧음 · 외유내강 · 당찬 · 짓궂은</dd></div>
         </dl>
 
         <p class="profile-quote">
-          “달빛이 바다 위에 머무는 것처럼,<br>
-          오래도록 같은 자리에서.”
+          그날 달빛 밑에서,<br>
+          붉은 불꽃 사이로 푸른 꽃이 흔들렸다.
         </p>
       </div>
     </div>
@@ -111,9 +118,9 @@
         <p class="section-no">01</p>
         <h3>PERSONALITY</h3>
         <p>
-          당차고 장난스러우며 자신의 마음과 기준을 잃지 않는다.
-          부드러운 인상과 달리 중요한 순간에는 스스로 선택하고 책임지는 사람.
-          상대를 소중히 여기기에 때로는 놓아주는 선택까지 할 수 있다.
+          당차고 올곧다. 끈기가 있어 포기를 잘 모르는 성정. 불의를 잘 참지 못하여 몸이 먼저 나갈 때가 많다.<br>
+          장난기가 많아 항상 장난 칠 타이밍을 노리고 있다. 그때마다 짓는 장난스러운 웃음은 덤.<br>
+          쉽게 지지 않으려하나 막상 상대가 빼지 않으면 부끄러움이 올라와 민망해한다.
         </p>
       </article>
 
@@ -122,16 +129,16 @@
           <p class="section-no">02</p>
           <h3>LIKE &amp; DISLIKE</h3>
           <div class="mini-columns">
-            <div><b>LIKE</b><p>바다 · 밤 · 장난 · 조용한 시간</p></div>
-            <div><b>DISLIKE</b><p>강요 · 무책임 · 마음을 가볍게 여기는 것</p></div>
+            <div><b>LIKE</b><p>바다 · 달빛 · 작은 장난<br>꽃 · 레무리아의 전설</p></div>
+            <div><b>DISLIKE</b><p>싫어하는 것<br>벌레 · 토마토</p></div>
           </div>
         </article>
 
         <article class="profile-section">
           <p class="section-no">03</p>
           <h3>SYMBOL</h3>
-          <p class="symbols">moon · sea · blue pearl · delphinium</p>
-          <p>달빛이 비치는 바다와 푸른 진주. 그리고 여름의 델피니움.</p>
+          <p class="symbols">🌕 · 미니 델피늄 · 짙은 남색</p>
+          <p>기본 아이콘은 🌕, 탄생화는 미니 델피늄(꽃말 : 당신을 행복하게 해 줄게요)<br>상징색은 #002097 애칭은 월이, 달이, 진주 </p>
         </article>
       </div>
 
@@ -140,154 +147,113 @@
         <h3>RELATIONSHIP</h3>
         <p class="relationship-name">KI WOOK <span>×</span> CHOI WOLHWA</p>
         <p>
-          서사 기본 스토리 따라감.<br>
-          지난 날에 바치는 시 : 그를 보낸 이후 제 선택이 맞다고 생각하면서도
-          기욱을 기다리고 싶어 매일 같이 바닷가에 앉아서 파도를 구경함.
+          서사 기본 스토리 따라감.</br>지난 날에 바치는 시 : 그를 보낸 이후 제 선택이 맞다고 생각하면서도 기욱을 기다리고 싶어 매일 같이 백사만에 앉아서 파도를 구경함.
         </p>
       </article>
     </div>
 
     <footer class="profile-footer">
-      <p>somewhere beyond the tide</p>
-      <span>CHOI WOLHWA</span>
-    </footer>
+      <p>somewhere beyond the tide, you.</p>
+     </footer>
   </section>
 
-  <section class="for-you-page" id="forYouPage" aria-hidden="true">
-    <div class="for-you-topbar">
-      <button class="for-you-back" id="forYouBack">← back</button>
-      <span>FOR YOU / PRIVATE RECRUITMENT</span>
+  <section class="contact-page" id="contactPage" aria-hidden="true">
+    <div class="contact-topbar">
+      <button class="contact-back" id="contactBack">← back</button>
+      <p>FOR YOU <span>02</span></p>
     </div>
 
-    <header class="for-you-hero">
-      <p class="for-you-kicker">FOR MY DEAREST</p>
-      <h2>당신을 기다리고 있어요.</h2>
-      <p class="for-you-lead">
-        이곳까지 와 주셔서 감사합니다.<br>
-        아래의 이야기를 천천히 읽어주세요.
-      </p>
+    <header class="contact-hero">
+      <p class="contact-overline">PRIVATE BOT RECRUITMENT</p>
+      <h2>나의 물고기에게</h2>
+      <p class="contact-lead">오랫동안 함께 할 천사님을 찾습니다.</p>
+      <div class="contact-rule"></div>
+      <p class="contact-ko">천사님 모심글 및 안내</p>
     </header>
 
-    <div class="for-you-details">
-      <article class="for-you-section about-me">
-        <p class="for-you-no">01</p>
-        <h3>ABOUT ME</h3>
-        <p class="for-you-sub">나에 대해</p>
-        <p>
-          편안하고 오래 이어지는 관계를 좋아합니다.
-          서로의 일상을 존중하면서도, 캐릭터와 이야기를 함께 아껴주실 분을 기다리고 있어요.
-        </p>
-
-        <div class="about-me-image">
-          <img src="images/about-me-checklist.jpg" alt="ABOUT ME checklist">
-          <div class="about-me-image-placeholder">
-            <span>CHECKLIST IMAGE</span>
-            <small>images/about-me-checklist.jpg</small>
-          </div>
+    <div class="contact-content">
+      <article class="contact-section about-me">
+        <div class="contact-heading">
+          <p class="contact-no">01</p>
+          <div><h3>ABOUT ME</h3><span>저에 대해</span></div>
+        </div>
+        <div class="contact-grid intro-grid">
+          <p class="contact-copy">성인 여자 오너이며, 드림주를 따로 가지고 있습니다. 오너 : 으지, 드림주 : 최월화 </br>공봇 구독이 있긴 한데 불편하시면 지양하겠습니다. 기본적으로 모든 것 천사님에게 맞춘다고 봐 주시면 돼요.</br>선물을 좋아하여 자주 커미션 및 더욱 가까워지면 기프티콘 선물 등을 드릴 수 있으나 부담스럽지 않으셨으면 좋겠습니다. 직장인이고 여유되는 돈 안에서만 합니다!</br>아마 천사님이 오시면 메인트에 자랑 트레 만들어서 영원히 자랑할 것 같습니다... 저 티내는 거 무지 좋아해요.</p>
+          <dl class="contact-list">
+            <div><dt>ACTIVITY</dt><dd>새벽~새벽. 근무 일정에 따라 유동적, 대체적으로 부르면 바로 오려고 하고 있습니다. 교대 근무자라 업무 중에는 대답이 조금 늦어질 수 있습니다.</dd></div>
+            <div><dt>STYLE</dt><dd>이입형 일상 대화(오픈카톡) + 트위터 공계 및 1:1 팔로우 </dd></div>
+            <div><dt>OWNER</dt><dd>기본적으로 오너와 분리되어 있고, 트위터에서는 부르는 쪽으로 대답합니다. 월화라고 부르시면 이입 대답합니다!</dd></div>
+          </dl>
+        </div>
+        <p class="contact-note">서로 부담이 되지 않는 선에서 편안하게, 그렇지만 애정을 담아 오래 함께하고 싶습니다.</p>
+        <div class="about-me-checklist">
+          <p class="checklist-label">OWNER CHECKLIST</p>
+          <img src="images/about-me-checklist.jpg" alt="개인봇 모집 체크리스트 표">
         </div>
       </article>
 
-      <article class="for-you-section about-you">
-        <p class="for-you-no">02</p>
-        <h3>ABOUT YOU</h3>
-        <p class="for-you-sub">천사님에 대해</p>
-
-        <div class="for-you-grid">
-          <div>
-            <span>01</span>
-            <h4>CHARACTER</h4>
-            <p>캐릭터를 소중하게 다뤄주시고, 설정과 관계성을 함께 맞춰가실 수 있는 분.</p>
-          </div>
-          <div>
-            <span>02</span>
-            <h4>PACE</h4>
-            <p>빠른 답장을 의무처럼 여기기보다 서로 가능한 속도로 편하게 이어가실 분.</p>
-          </div>
-          <div>
-            <span>03</span>
-            <h4>STORY</h4>
-            <p>짧은 대화부터 긴 서사까지, 두 사람의 이야기가 쌓이는 과정을 즐겨주실 분.</p>
-          </div>
-          <div>
-            <span>04</span>
-            <h4>RESPECT</h4>
-            <p>현생과 개인적인 경계를 존중하며 필요한 부분은 편하게 조율해주실 분.</p>
-          </div>
+      <article class="contact-section about-you">
+        <div class="contact-heading align-right">
+          <p class="contact-no">02</p>
+          <div><h3>ABOUT YOU</h3><span>천사님에 대해</span></div>
+        </div>
+        <div class="wish-grid">
+          <section><b>CHARACTER</b><p>제가 한 달 된 뉴비라 이제 막 스토리를 알아가고, 또 보는 재미를 느끼고 있다 보니, 천사님도 굳이 전부 다 알지 않으셔도 됩니다.(일단 기본 서사는 알고 있습니다!) 같이 스토리를 보면서 서사를 함께 쌓아나가도 정말 재밌을 것 같아요. 새로운 스토리를 알게 되면 기억이 났다면서 언급할 예정입니다! </p></section>
+          <section><b>RELATIONSHIP</b><p>기본적으로 최월화 이입으로 함께 일상 대화를 해나갈 것 같습니다. 필요하면 괄호 열고 역극형식으로 해 나가도 좋습니다! 순수 대화체도 괜찮아요. 공계 같은 경우 실시간으로 게임을 즐길 때마다 이것저것 올리는 걸 좋아해서 거기에 편하게 제4의벽 넘어 인용 및 멘션 달아주셔도 됩니다! 월화라고 부르실 경우 이입에서 답하고, 제 닉넴을 부를 경우엔 오너 말투로 편하게 얘기합니다. 오너에게 유사를 먹여 주셔도 좋습니다b. 인게임 스샷 및 사진 등 편하게 쓰셔도 좋습니다. 이모티콘도 좋아요.</p></section>
+          <section><b>COMMUNICATION</b><p>답장 텀에는 크게 민감하지 않습니다. 바쁜 날에는 쉬어가도 괜찮고, 필요한 부분은 편하게 조율했으면 해요. 7일 이상 자리 비울 때, 이별하실 때만 언급 주세요. 조율 필요하신 부분이나 불편하신 부분은 바로바로 얘기해주시면 기분 나쁘지 않게 맞춰드릴 수 있습니다! 언제든지 조율해 주세요.</p></section>
+          <section><b>PLEASE NOTE</b><p>제가 성인 여성에 나이도 어리지 않다 보니, 기본적으로 천사님도 성인 여성분이시면 좋겠습니다. 수위표 체크는 어디까지 가능하다고 체크해둔 것일 뿐 수위 원치 않으시면 하지 않으셔도 상관 없습니다. 가벼운 뽀뽀 정도는 너무너무 하고 싶어요... s2 </p></section>
         </div>
       </article>
 
-      <article class="for-you-section contact">
-        <p class="for-you-no">03</p>
-        <h3>CONTACT</h3>
-        <p class="for-you-sub">컨택 주실 곳</p>
-        <p>
-          아래 링크로 편하게 찾아와 주세요.<br>
-          간단한 소개와 함께 말씀 주시면 감사하겠습니다.
-        </p>
-
-        <div class="contact-box">
-          <span>OPEN KAKAO</span>
-          <a class="contact-link" href="https://open.kakao.com/o/sPgExRJh" target="_blank" rel="noopener noreferrer">CONTACT ME ↗</a>
+      <article class="contact-section contact-zone">
+        <div class="contact-heading centered">
+          <p class="contact-no">03</p>
+          <div><h3>CONTACT</h3><span>컨택 주실 곳</span></div>
         </div>
+        <p class="contact-invite">긴 글 읽어주셔서 감사합니다 마음이 동하시면 아래 연락처로 편하게 찾아와 주세요! 단순 질문 방문도 괜찮습니다.<br>첫 연락때는 체크표 같이 체크해 와 주시면 감사하겠습니다</p>
+        <div class="contact-links">
+          <div><span>X · TWITTER</span><strong>@kki_song</strong></div>
+          <div><span>OPEN KAKAO</span><a class="contact-me-link" href="https://open.kakao.com/o/sPgExRJh" target="_blank" rel="noopener noreferrer">CONTACT ME ↗</a></div>
+        </div>
+        <p class="contact-ending">I'll be waiting beyond the tide.</p>
       </article>
     </div>
 
-    <footer class="for-you-footer">
-      <p>thank you for reading.</p>
-      <span>SOMEWHERE BEYOND THE TIDE</span>
+    <footer class="profile-footer contact-footer">
+      <p>somewhere beyond the tide, you.</p>
     </footer>
   </section>
 
-  <section class="capture-page" id="capturePage" aria-hidden="true">
-    <div class="capture-topbar">
-      <button class="capture-back" id="captureBack">← back</button>
-      <span>CAPTURE / OUR MOMENTS</span>
+  <section class="gallery-page" id="galleryPage" aria-hidden="true">
+    <div class="gallery-topbar">
+      <button class="gallery-back" id="galleryBack">← back</button>
+      <p>CAPTURE <span>03</span></p>
     </div>
-
-    <header class="capture-hero">
-      <p class="capture-kicker">OUR MOMENTS</p>
+    <header class="gallery-hero">
+      <p class="gallery-overline">OUR MOMENTS</p>
       <h2>우리의 기억</h2>
-      <p class="capture-lead">당신과의 색채가 영원히 남도록.</p>
+      <p>당신과의 색채가 영원할 수 있도록.</p>
     </header>
-
-    <div class="capture-filters" role="tablist" aria-label="Gallery filter">
-      <button class="capture-filter is-active" data-filter="all">ALL</button>
-      <button class="capture-filter" data-filter="daily">DAILY</button>
-      <button class="capture-filter" data-filter="date">DATE</button>
-      <button class="capture-filter" data-filter="memory">MEMORY</button>
+    <div class="gallery-wrap">
+      <div class="gallery-filters" aria-label="갤러리 필터">
+        <button class="active" data-filter="all">ALL</button>
+        <button data-filter="talk">TALK</button>
+        <button data-filter="commission">COMMISSION</button>
+        <button data-filter="memory">MEMORY</button>
+      </div>
+      <div class="gallery-grid" id="galleryGrid">
+        <figure class="gallery-item" data-category="memory"><img src="images/gallery/01.png" alt="스티커사진"><figcaption><span>2026.10.06</span><p>뽀뽀 잔뜩 받으니까 어때요?</p></figcaption></figure>
+        <figure class="gallery-item tall" data-category="memory"><img src="images/gallery/02.png" alt="에스코트"><figcaption><span>2026.10.06</span><p>물고기의 에스코트.</p></figcaption></figure>
+        <figure class="gallery-item wide" data-category="memory"><img src="images/gallery/03.png" alt="꽃"><figcaption><span>2026.10.06</span><p>기욱 씨에게 어울리는 꽃을 말해준 적 있던가요?</p></figcaption></figure>
+        <figure class="gallery-item" data-category="memory"><img src="images/gallery/04.png" alt="키스"><figcaption><span>2026.10.06</span><p>손을 꽉 잡아 줘요.</p></figcaption></figure>
+      </div>
+      <p class="gallery-ending">every moment eventually becomes a memory.</p>
     </div>
+  <div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true"><button id="lightboxClose">×</button><button class="lightbox-nav prev" id="lightboxPrev">‹</button><div class="lightbox-inner"><img id="lightboxImage" alt=""><div id="lightboxText"></div></div><button class="lightbox-nav next" id="lightboxNext">›</button></div>
 
-    <div class="capture-gallery" id="captureGallery">
-      <figure class="gallery-item" data-category="memory"><img src="images/gallery/01.png" alt="뽀뽀 잔뜩 받으니까 어때?"><figcaption><span>2026.10.06</span><p>an ordinary day with you.</p></figcaption></figure>
-      <figure class="gallery-item" data-category="daily"><img src="images/gallery/02.png" alt=""><figcaption><span>2026.10.05</span><p>flowers between us.</p></figcaption></figure>
-      <figure class="gallery-item" data-category="date"><img src="images/gallery/03.png" alt=""><figcaption><span>2026.10.04</span><p>under the golden light.</p></figcaption></figure>
-      <figure class="gallery-item" data-category="memory"><img src="images/gallery/04.png" alt=""><figcaption><span>2026.10.03</span><p>close enough to hear you.</p></figcaption></figure>
-      <figure class="gallery-item placeholder-item" data-category="daily"><div class="img placeholder tall"><span>05</span><small>images/gallery/05.jpg</small></div><figcaption><span>2026.09.28</span><p>slow afternoon.</p></figcaption></figure>
-      <figure class="gallery-item placeholder-item" data-category="date"><div class="img placeholder"><span>06</span><small>images/gallery/06.jpg</small></div><figcaption><span>2026.09.21</span><p>somewhere we remember.</p></figcaption></figure>
-    </div>
-
-    <p class="capture-ending">every moment eventually becomes a memory.</p>
-
-    <footer class="capture-footer">
-      <p>somewhere beyond the tide</p>
-      <span>KI WOOK / CHOI WOLHWA</span>
-    </footer>
-  </section>
-
-  <div class="capture-lightbox" id="captureLightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
-    <button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Previous">‹</button>
-    <div class="lightbox-stage">
-      <img id="lightboxImage" alt="">
-      <div class="lightbox-caption"><span id="lightboxDate"></span><p id="lightboxText"></p></div>
-    </div>
-    <button class="lightbox-arrow next" id="lightboxNext" aria-label="Next">›</button>
-  </div>
-
-  <div class="water-transition" id="waterTransition" aria-hidden="true">
-    <div class="water-transition__glow"></div>
-  </div>
+  <div class="water-transition" id="waterTransition" aria-hidden="true"><span class="water-glow"></span></div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
