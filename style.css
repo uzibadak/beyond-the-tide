@@ -713,3 +713,8 @@ button{font:inherit}
 .ocean-player__play{width:30px;height:30px;flex:0 0 30px;border:0!important;border-radius:50%;padding:0!important;background:rgba(255,255,255,.74)!important;color:#002097!important;font-size:9px!important;cursor:pointer!important;text-align:center!important}.ocean-player__play:hover{background:#fff!important}.ocean-player.playing .ocean-player__disc{animation:oceanSpin 7s linear infinite}.ocean-player iframe{position:absolute!important;width:1px!important;height:1px!important;left:-9999px!important;bottom:auto!important;border:0!important;opacity:0!important;pointer-events:none!important}
 @keyframes oceanSpin{to{transform:rotate(360deg)}}
 @media(max-width:560px){.ocean-player{right:12px!important;bottom:12px!important;width:220px!important;height:50px!important}}
+
+
+/* Main caption definitive placement */
+.main-screen .entrance-label{position:static!important;left:auto!important;bottom:auto!important;top:auto!important;transform:none!important;margin:18px 0 0!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:13px!important;width:auto!important;z-index:2!important}
+.main-screen .since{position:static!important;left:auto!important;bottom:auto!important;top:auto!important;transform:none!important;margin:7px 0 0!important;z-index:2!important}
