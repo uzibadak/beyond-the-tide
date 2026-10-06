@@ -158,17 +158,6 @@ document.addEventListener("keydown", (e) => {
 });
 
 
-// Floating YouTube BGM player
-const oceanPlayer = document.getElementById("oceanPlayer");
-const oceanPlayerToggle = document.getElementById("oceanPlayerToggle");
-if(oceanPlayer && oceanPlayerToggle){
-  oceanPlayerToggle.addEventListener("click", () => {
-    const open = oceanPlayer.classList.toggle("open");
-    oceanPlayerToggle.setAttribute("aria-expanded", String(open));
-  });
-}
-
-
 // Minimal Ocean BGM controls (YouTube iframe API via postMessage)
 const oceanYoutube = document.getElementById("oceanYoutube");
 if(oceanPlayer && oceanPlayerToggle && oceanYoutube){
