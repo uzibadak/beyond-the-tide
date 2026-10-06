@@ -167,3 +167,19 @@ if(oceanPlayer && oceanPlayerToggle){
     oceanPlayerToggle.setAttribute("aria-expanded", String(open));
   });
 }
+
+
+// Minimal Ocean BGM controls (YouTube iframe API via postMessage)
+const oceanYoutube = document.getElementById("oceanYoutube");
+if(oceanPlayer && oceanPlayerToggle && oceanYoutube){
+  let oceanPlaying = false;
+  oceanPlayerToggle.replaceWith(oceanPlayerToggle.cloneNode(true));
+  const bgmButton = document.getElementById("oceanPlayerToggle");
+  bgmButton.addEventListener("click", () => {
+    oceanPlaying = !oceanPlaying;
+    oceanYoutube.contentWindow.postMessage(JSON.stringify({event:"command",func:oceanPlaying?"playVideo":"pauseVideo",args:[]}), "*");
+    oceanPlayer.classList.toggle("playing", oceanPlaying);
+    bgmButton.textContent = oceanPlaying ? "Ⅱ" : "▶";
+    bgmButton.setAttribute("aria-label", oceanPlaying ? "Ocean 일시정지" : "Ocean 재생");
+  });
+}
