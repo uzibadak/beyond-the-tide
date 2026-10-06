@@ -223,7 +223,19 @@
       <p>somewhere beyond the tide, you.</p>
     </footer>
   </section>
-
+  <aside class="ocean-player" id="oceanPlayer">
+    <button class="ocean-player__toggle" id="oceanPlayerToggle" type="button" aria-expanded="false">
+      <span class="ocean-player__note">♫</span>
+      <span><small>NOW PLAYING</small><b>OCEAN</b></span>
+      <span class="ocean-player__arrow">⌃</span>
+    </button>
+    <div class="ocean-player__body">
+      <div class="ocean-player__video">
+        <iframe src="https://www.youtube.com/embed/0u3E46BT04E?rel=0&playsinline=1" title="Martin Garrix feat. Khalid - Ocean" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <p>Martin Garrix feat. Khalid · Ocean</p>
+    </div>
+  </aside>
   <section class="gallery-page" id="galleryPage" aria-hidden="true">
     <div class="gallery-topbar">
       <button class="gallery-back" id="galleryBack">← back</button>
@@ -252,19 +264,6 @@
   <div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true"><button id="lightboxClose">×</button><button class="lightbox-nav prev" id="lightboxPrev">‹</button><div class="lightbox-inner"><img id="lightboxImage" alt=""><div id="lightboxText"></div></div><button class="lightbox-nav next" id="lightboxNext">›</button></div>
 
   <div class="water-transition" id="waterTransition" aria-hidden="true"><span class="water-glow"></span></div>
-  <aside class="ocean-player" id="oceanPlayer">
-    <button class="ocean-player__toggle" id="oceanPlayerToggle" type="button" aria-expanded="false">
-      <span class="ocean-player__note">♫</span>
-      <span><small>NOW PLAYING</small><b>OCEAN</b></span>
-      <span class="ocean-player__arrow">⌃</span>
-    </button>
-    <div class="ocean-player__body">
-      <div class="ocean-player__video">
-        <iframe src="https://www.youtube.com/embed/0u3E46BT04E?rel=0&playsinline=1" title="Martin Garrix feat. Khalid - Ocean" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-      <p>Martin Garrix feat. Khalid · Ocean</p>
-    </div>
-  </aside>
   <script src="script.js"></script>
 </body>
 </html>
