@@ -172,3 +172,15 @@ if(oceanPlayer && oceanPlayerToggle && oceanYoutube){
     bgmButton.setAttribute("aria-label", oceanPlaying ? "Ocean 일시정지" : "Ocean 재생");
   });
 }
+
+
+// ABOUT ME checklist image zoom
+const checklistZoomImage=document.getElementById("checklistZoomImage");
+const checklistLightbox=document.getElementById("checklistLightbox");
+const checklistLightboxClose=document.getElementById("checklistLightboxClose");
+function openChecklistZoom(){if(!checklistLightbox)return;checklistLightbox.classList.add("open");checklistLightbox.setAttribute("aria-hidden","false");}
+function closeChecklistZoom(){if(!checklistLightbox)return;checklistLightbox.classList.remove("open");checklistLightbox.setAttribute("aria-hidden","true");}
+if(checklistZoomImage){checklistZoomImage.addEventListener("click",openChecklistZoom);checklistZoomImage.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openChecklistZoom();}})}
+if(checklistLightboxClose)checklistLightboxClose.addEventListener("click",closeChecklistZoom);
+if(checklistLightbox)checklistLightbox.addEventListener("click",e=>{if(e.target===checklistLightbox||e.target.tagName==="IMG")closeChecklistZoom();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&checklistLightbox?.classList.contains("open"))closeChecklistZoom();});
