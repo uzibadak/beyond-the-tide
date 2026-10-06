@@ -4,7 +4,14 @@
   <title>Beyond the Tide</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261006-2">
+<!-- critical-ocean-player -->
+<style>
+.ocean-player{position:fixed;right:24px;bottom:22px;z-index:9000;width:250px;height:54px;display:flex;align-items:center;gap:10px;padding:8px 10px;box-sizing:border-box;border:1px solid rgba(255,255,255,.55);border-radius:28px;background:rgba(238,248,252,.78);box-shadow:0 8px 28px rgba(8,52,82,.12);backdrop-filter:blur(14px);font-family:Georgia,"Times New Roman",serif;color:#476779;overflow:hidden}
+.ocean-player__disc{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.78);color:#002097;font-size:12px}
+.ocean-player__meta{min-width:0;flex:1;display:flex;flex-direction:column;gap:3px}.ocean-player__meta small{font-size:6px;letter-spacing:.24em;color:#7998aa}.ocean-player__meta span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:8px;font-style:italic;color:#526f7f}
+.ocean-player__play{width:30px;height:30px;flex:0 0 30px;border:0;border-radius:50%;padding:0;background:rgba(255,255,255,.8);color:#002097;font-size:9px;cursor:pointer}.ocean-player iframe{position:absolute;width:1px;height:1px;left:-9999px;border:0;opacity:0;pointer-events:none}
+</style>
 </head>
 <body>
 
@@ -263,7 +270,7 @@
   <div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true"><button id="lightboxClose">×</button><button class="lightbox-nav prev" id="lightboxPrev">‹</button><div class="lightbox-inner"><img id="lightboxImage" alt=""><div id="lightboxText"></div></div><button class="lightbox-nav next" id="lightboxNext">›</button></div>
 
   <div class="water-transition" id="waterTransition" aria-hidden="true"><span class="water-glow"></span></div>
-  <script src="script.js"></script>
+  <script src="script.js?v=20261006-2"></script>
 </body>
 </html>
 
