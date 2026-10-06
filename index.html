@@ -4,7 +4,7 @@
   <title>Beyond the Tide</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="stylesheet" href="style.css?v=20261006-4">
+  <link rel="stylesheet" href="style.css?v=20261006-5">
 <!-- critical-ocean-player -->
 <style>
 .ocean-player{position:fixed;right:24px;bottom:22px;z-index:9000;width:250px;height:54px;display:flex;align-items:center;gap:10px;padding:8px 10px;box-sizing:border-box;border:1px solid rgba(255,255,255,.55);border-radius:28px;background:rgba(238,248,252,.78);box-shadow:0 8px 28px rgba(8,52,82,.12);backdrop-filter:blur(14px);font-family:Georgia,"Times New Roman",serif;color:#476779;overflow:hidden}
@@ -207,7 +207,8 @@
         <p class="contact-note">서로 부담이 되지 않는 선에서 편안하게, 그렇지만 애정을 담아 오래 함께하고 싶습니다.</p>
         <div class="about-me-checklist">
           <p class="checklist-label">OWNER CHECKLIST</p>
-          <img src="images/about-me-checklist.jpg" alt="개인봇 모집 체크리스트 표">
+          <img src="images/about-me-checklist.jpg" alt="개인봇 모집 체크리스트 표" id="checklistZoomImage" role="button" tabindex="0" aria-label="체크리스트 이미지 크게 보기">
+          <p class="checklist-zoom-hint">click to enlarge +</p>
         </div>
       </article>
 
@@ -270,7 +271,12 @@
   <div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true"><button id="lightboxClose">×</button><button class="lightbox-nav prev" id="lightboxPrev">‹</button><div class="lightbox-inner"><img id="lightboxImage" alt=""><div id="lightboxText"></div></div><button class="lightbox-nav next" id="lightboxNext">›</button></div>
 
   <div class="water-transition" id="waterTransition" aria-hidden="true"><span class="water-glow"></span></div>
-  <script src="script.js?v=20261006-3"></script>
+  <script src="script.js?v=20261006-5"></script>
+  <div class="checklist-lightbox" id="checklistLightbox" aria-hidden="true">
+    <button class="checklist-lightbox__close" id="checklistLightboxClose" type="button" aria-label="닫기">×</button>
+    <img src="images/about-me-checklist.jpg" alt="개인봇 모집 체크리스트 확대 이미지">
+    <p>click outside to close</p>
+  </div>
 </body>
 </html>
 
