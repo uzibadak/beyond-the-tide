@@ -32,7 +32,9 @@ function hideMenu(){ overlay.classList.remove("open"); overlay.setAttribute("ari
 
 // Keep each in-site screen in browser history so the browser Back button
 // returns to the previous screen instead of leaving the website.
+const initialDreamView = ["menu", "profile", "contact", "gallery"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
 history.replaceState({ dreamView: "home" }, "", location.pathname + location.search);
+if(initialDreamView !== "home") history.pushState({ dreamView: initialDreamView }, "", "#" + initialDreamView);
 
 function pushDreamView(view){
   history.pushState({ dreamView: view }, "", "#" + view);
@@ -205,3 +207,6 @@ if(checklistZoomImage){checklistZoomImage.addEventListener("click",openChecklist
 if(checklistLightboxClose)checklistLightboxClose.addEventListener("click",closeChecklistZoom);
 if(checklistLightbox)checklistLightbox.addEventListener("click",e=>{if(e.target===checklistLightbox||e.target.tagName==="IMG")closeChecklistZoom();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&checklistLightbox?.classList.contains("open"))closeChecklistZoom();});
+
+// Open the requested section immediately when arriving through a shared deep link.
+if(initialDreamView !== "home") exactView(initialDreamView);
