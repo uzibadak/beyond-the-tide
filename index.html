@@ -47,7 +47,7 @@
       ★ 여기에 준비한 핑크 바다 창문 이미지를 넣으면 됩니다.
       파일명을 window.png 로 바꿔 images 폴더 안에 넣어주세요.
     -->
-    <button class="window-link" id="windowLink" aria-label="홈페이지 들어가기">
+    <button class="window-link" id="windowLink" aria-label="홈페이지 들어가기" onclick="setTimeout(function(){var m=document.getElementById('menuOverlay');if(m&&!m.classList.contains('open')){m.classList.add('open');m.setAttribute('aria-hidden','false');}},1200)">
       <div class="window-image">
         <img src="images/window.png" alt="커튼이 휘날리는 핑크 바다 창문"
              onerror="this.style.display='none'; this.parentElement.classList.add('empty');">
@@ -78,7 +78,7 @@
           <span class="menu-rule"></span>
         </button>
 
-        <button class="menu-card" data-menu="story">
+        <button class="menu-card" data-menu="story" onclick="setTimeout(function(){var c=document.getElementById('contactPage');if(c&&!c.classList.contains('open')){document.getElementById('menuOverlay').classList.add('open');c.classList.add('open');c.setAttribute('aria-hidden','false');}},1200)">
           <span class="menu-no">Contact</span>
           <span class="menu-name">🦐</span>
           <span class="menu-desc">기다림을 기억해요.</span>
