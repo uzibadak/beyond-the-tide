@@ -300,7 +300,25 @@
   <div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true"><button id="lightboxClose">×</button><button class="lightbox-nav prev" id="lightboxPrev">‹</button><div class="lightbox-inner"><img id="lightboxImage" alt=""><video id="lightboxVideo" controls playsinline preload="metadata" style="display:none"></video><div id="lightboxText"></div></div><button class="lightbox-nav next" id="lightboxNext">›</button></div>
 
   <div class="water-transition" id="waterTransition" aria-hidden="true"><span class="water-glow"></span></div>
-  <script src="script.js?v=20261016-contact-direct"></script>
+  <script src="script.js?v=20261018-contact-fix2"></script>
+  <script>
+    // Independent deep-link fallback for browsers that fail to initialize the main script.
+    (function () {
+      function restoreSection() {
+        if (window.location.hash !== '#contact') return;
+        var menu = document.getElementById('menuOverlay');
+        var contact = document.getElementById('contactPage');
+        if (!contact) return;
+        if (menu) { menu.classList.add('open'); menu.setAttribute('aria-hidden', 'false'); }
+        contact.classList.add('open');
+        contact.setAttribute('aria-hidden', 'false');
+        contact.scrollTop = 0;
+      }
+      restoreSection();
+      window.addEventListener('hashchange', restoreSection);
+      window.addEventListener('pageshow', restoreSection);
+    })();
+  </script>
 
 </body>
 </html>
