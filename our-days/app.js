@@ -42,7 +42,7 @@ $('loginToggle').onclick=()=>{const show=$('pinLoginForm').hidden;$('pinLoginFor
 $('pinLoginForm').onsubmit=async e=>{
   e.preventDefault();
   const code=$('pinCode').value.trim();
-  if(!/^\\d{4}$/.test(code)){alert('숫자 4자리를 입력해 주세요.');return;}
+  if(!/^\d{4}$/.test(code)){alert('숫자 4자리를 입력해 주세요.');return;}
   const btn=e.target.querySelector('button');btn.disabled=true;
   try{
     const {data,error}=await supabase.functions.invoke('our-days-pin-login',{body:{code}});
