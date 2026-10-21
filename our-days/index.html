@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Days · Beyond the Tide</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap');
+:root{--ink:#585763;--muted:#8f8a94}*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:'Gowun Dodum',sans-serif;background:linear-gradient(155deg,#f9f5f6,#f1e9ed 50%,#dce8ed);min-height:100vh}body:before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 10% 10%,#fff9 0,transparent 55%),radial-gradient(ellipse at 85% 95%,#d9d7e580 0,transparent 55%)}main{position:relative;max-width:880px;margin:45px auto 90px;padding:0 18px}.back{font-size:12px;letter-spacing:.2em;color:#888;text-decoration:none}.hero{text-align:center;margin:25px 0 30px}.over{letter-spacing:.3em;font-size:10px;color:#a29aa5}.hero h1{font-family:Georgia,serif;font-weight:400;font-size:36px;letter-spacing:.04em;margin:9px 0}.hero p{font-size:12px;color:#89828b}.fridge{position:relative;border:1px solid #fff;background:linear-gradient(125deg,#faf9f5,#f4f2ef 55%,#f9f8f5);box-shadow:0 24px 65px #69778625,inset 0 0 35px #ffffffbb;border-radius:23px;padding:30px 34px 65px;overflow:hidden}.fridge:after{content:'';position:absolute;right:18px;top:55px;bottom:55px;width:4px;border-radius:4px;background:linear-gradient(90deg,#e7e5e1,#fff,#e8e5e2);opacity:.6}.count{text-align:center;margin:0 auto 35px;padding:18px 10px 23px;border-bottom:1px solid #d8d2d0}.count .since{font-family:Georgia,serif;font-size:11px;letter-spacing:.22em;color:#a29ba2}.count strong{display:block;font-family:Georgia,serif;font-size:49px;font-weight:400;color:#8e8290;margin:4px}.count small{color:#aaa0a5;font-size:12px}.board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 26px;align-items:start;padding:6px 12px}.note{position:relative;padding:28px 22px 18px;background:#fff8e9;box-shadow:2px 8px 14px #7e777126,0 1px 2px #a69a8930;transform:rotate(-1.5deg);min-height:180px;transition:transform .2s}.note:nth-child(2n){background:#f0f4f7;transform:rotate(1.8deg)}.note:nth-child(3n){background:#f8eff2;transform:rotate(.7deg)}.note:hover{transform:rotate(0deg) translateY(-2px)}.magnet{position:absolute;top:-11px;left:calc(50% - 11px);width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff,#c6a6b8 42%,#957b91 100%);box-shadow:1px 3px 4px #7775;border:2px solid #fff8}.note:nth-child(2n) .magnet{background:radial-gradient(circle at 34% 28%,#fff,#a8c6d1 42%,#7d9fae)}.notehead{display:flex;align-items:center;justify-content:space-between;gap:6px;color:#8d828b;font-size:11px}.who{font-weight:bold;letter-spacing:.03em}.content{font-family:'Nanum Pen Script','Gowun Dodum',cursive;font-size:27px;line-height:1.18;white-space:pre-wrap;overflow-wrap:anywhere;margin:19px 0 18px}.replytoggle{border:0;background:none;color:#998b95;font-family:inherit;font-size:11px;cursor:pointer;padding:0}.replies{margin-top:15px;border-top:1px dashed #cfc4c5;padding-top:12px}.reply{font-size:12px;margin:0 0 10px;line-height:1.7}.reply b{color:#807686}.replyform{display:flex;gap:5px;margin-top:10px}.replyform input{width:100%;min-width:0;border:0;border-bottom:1px solid #c9c2c1;background:transparent;padding:7px 3px;outline:none;font:inherit;font-size:12px}.replyform button{border:0;background:transparent;color:#9b8192;cursor:pointer}.composer{margin:40px auto 0;max-width:480px;background:#fffbf2;box-shadow:3px 7px 18px #847b7525;position:relative;padding:30px 26px 23px;transform:rotate(.4deg)}.tape{position:absolute;top:-12px;left:42%;height:25px;width:75px;background:#e7d5d6aa;transform:rotate(-5deg)}.composer h2{font-family:Georgia,serif;font-size:18px;font-weight:400;margin:0 0 12px;color:#8b7f8a}.composer textarea{width:100%;height:78px;resize:vertical;border:0;background:transparent;outline:0;font:23px 'Nanum Pen Script',cursive;color:#655b66}.actions{display:flex;align-items:center;justify-content:space-between;gap:10px}.actions select{background:transparent;border:0;color:#8c808b;font-family:inherit;font-size:12px}.actions button{border:1px solid #cbb8c1;border-radius:22px;padding:8px 17px;background:#f5e7eb;color:#806978;cursor:pointer;font:12px 'Gowun Dodum',sans-serif}.foot{text-align:center;color:#aaa0a5;font-size:11px;margin-top:28px}.hint{text-align:center;color:#918b94;font-size:12px;margin-top:18px}@media(max-width:590px){main{margin:20px auto;padding:0 10px}.fridge{padding:25px 17px 45px}.board{grid-template-columns:1fr;gap:28px;padding:5px 12px}.note{min-height:145px}.hero h1{font-size:30px}.count strong{font-size:43px}}
+
+/* Our Days · soft paper & fridge refinements */
+.fridge{background:linear-gradient(115deg,#fcfbf8 0%,#f6f5f2 43%,#eeefed 100%);box-shadow:0 24px 65px #69778620,inset 8px 0 30px #fff9,inset -6px 0 22px #aeb3b013}
+.fridge:before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0,transparent 3px,#9f9a9005 4px);opacity:.35}
+.board{position:relative;gap:39px 32px;padding:12px 17px 25px}
+.note{isolation:isolate;min-height:177px;background:#f9eaf0;transform:rotate(-2.1deg);border-radius:2px 3px 5px 2px;box-shadow:3px 10px 17px #746c7426,0 1px 2px #786b7130;transition:transform .22s ease,box-shadow .22s ease}
+.note:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0,transparent 4px,#9a829109 5px),radial-gradient(circle at 16% 24%,#fff9,transparent 45%),radial-gradient(circle at 85% 80%,#8c75860d,transparent 52%);mix-blend-mode:multiply;opacity:.68}
+.note:after{content:"";position:absolute;bottom:0;right:0;border-style:solid;border-width:0 0 16px 16px;border-color:transparent transparent #bfaeb32b transparent;filter:drop-shadow(-1px -1px 1px #fff7)}
+.note:nth-child(2n){background:#e8f0f4;transform:rotate(1.8deg)}
+.note:nth-child(3n){background:#f8eaf0}
+.note:nth-child(3n){transform:rotate(.65deg)}
+.note:nth-child(4n){transform:rotate(-1deg) translateY(8px)}
+.note:hover,.note:focus-within{transform:rotate(0deg) translateY(-4px);box-shadow:4px 15px 22px #746c7433;z-index:3}
+.magnet{width:66px;height:21px;left:calc(50% - 33px);top:-10px;border:0;border-radius:1px;background:repeating-linear-gradient(100deg,#ffffff30 0 3px,transparent 3px 7px),rgba(218,199,194,.60);box-shadow:0 1px 2px #82777b1b;transform:rotate(-6deg);backdrop-filter:blur(2px)}.note:nth-child(2n) .magnet{background:rgba(199,213,217,.68);transform:rotate(5deg)}.note:nth-child(3n) .magnet{background:rgba(225,205,215,.66);transform:rotate(-3deg)}
+
+.notehead{letter-spacing:.02em}.note .who{color:#827d89}
+.content{font-size:29px;line-height:1.28;margin:17px 0 21px}
+.replies{background:#ffffff45;margin:14px -7px -5px;padding:13px 9px 7px;border-top:1px dashed #b9a9b270;border-radius:3px}
+.reply{padding-left:10px;border-left:2px solid #c9aebc99;margin-bottom:11px}
+.reply[data-author="기욱"]{border-color:#9fbac9}.reply b{font-size:11px}
+.replytoggle{padding:5px 0;letter-spacing:.025em}.replytoggle:hover{text-decoration:underline}
+.composer{background:#fff9ec;transform:rotate(-.65deg);border-radius:2px;box-shadow:3px 9px 18px #847b7527}
+.composer:before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0,transparent 5px,#bdaaa40a 6px)}
+.tape{background:linear-gradient(90deg,#ead4d9bb,#f4e3e6b8,#e2cdd5bd);border-left:1px solid #fff8;border-right:1px solid #fff8;box-shadow:0 1px 2px #98868b24}
+@media(max-width:590px){.board{gap:35px;padding:10px 14px 25px}.note:nth-child(4n){transform:rotate(-1deg)}.note{padding:27px 22px 18px}.content{font-size:28px}}
+/* v5: 단정하고 차분한 메모 본문 글꼴 */
+.note .content{font-family:'Gowun Dodum','Malgun Gothic',sans-serif;font-size:17px;font-weight:400;line-height:1.85;letter-spacing:-.025em;margin:19px 0 20px}
+.composer textarea{font-family:'Gowun Dodum','Malgun Gothic',sans-serif;font-size:16px;line-height:1.85;letter-spacing:-.02em}
+@media(max-width:590px){.note .content{font-size:17px;line-height:1.8}}
+
+.notehead{justify-content:flex-end}.reply b{display:none}.actions{justify-content:flex-end}
+/* Live Our Days */
+.notehead{justify-content:flex-end}
+.note .content:empty{display:none}
+.authbar{display:flex;justify-content:flex-end;align-items:center;gap:9px;margin:0 0 16px;flex-wrap:wrap}
+.authbar button,.login-panel button,.small-btn{font:12px 'Gowun Dodum',sans-serif;color:#796f7d;background:#fffaf9;border:1px solid #d9cbd1;border-radius:18px;padding:7px 13px;cursor:pointer}
+.authbar small{color:#978d96;font-size:11px}
+.login-panel{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;margin-bottom:16px}
+.login-panel input{font:12px 'Gowun Dodum',sans-serif;min-width:125px;max-width:180px;border:1px solid #ded3d7;background:#fff;padding:8px;border-radius:6px}
+.composer[hidden],.replyform[hidden],.login-panel[hidden],.authbar [hidden]{display:none!important}
+.notice{font-size:12px;color:#93838c;text-align:center;margin:16px 0}
+.note .note-photo{max-height:320px}
+.note .note-delete,.reply-delete{font:11px 'Gowun Dodum',sans-serif;color:#a1969e;border:0;background:transparent;cursor:pointer}
+.reply{display:flex;gap:7px;align-items:baseline;justify-content:space-between}
+.reply span{white-space:pre-wrap;overflow-wrap:anywhere}
+.reply .reply-delete{flex:none}
+@media(max-width:590px){.login-panel input{min-width:100px;width:42%}}
+ .reply-date{font-size:10px;color:#a49aa1;white-space:nowrap} .replyform{align-items:center} .replyform button:disabled{opacity:.45} .photo-preview img{max-width:100%;max-height:210px;object-fit:contain} .note-photo{display:block;max-width:100%;height:auto} .photo-open{border:0;background:transparent;padding:0;cursor:zoom-in} .photo-dialog{border:0;border-radius:12px;max-width:95vw;max-height:95vh;background:#fffaf9;padding:20px} .photo-dialog img{max-width:85vw;max-height:80vh;object-fit:contain} .photo-dialog button{float:right;border:0;background:none;font-size:22px;cursor:pointer} .attach{font-size:12px;color:#8c808b;cursor:pointer} .replies[hidden]{display:none!important}
+
+/* Letters to You와 동일한 분홍 파도 배경 */
+body { background: #d9c4c9 url("./ocean-background.jpg") center center / cover fixed no-repeat; }
+body::before { display: none; }
+@media (max-width: 590px) { body { background-attachment: scroll; } }
+
+/* Header contrast over the ocean background */
+.hero .over{color:#fff;text-shadow:0 1px 6px #30465b88}
+.hero p{color:#171717;text-shadow:0 1px 4px #ffffff99}
+.authbar #authStatus{display:none!important}
+</style></head>
+<body><main>
+<a class="back" href="../">← BEYOND THE TIDE</a>
+<header class="hero"><div class="over">OUR DAYS · LITTLE NOTES</div><h1>Before I forget</h1><p>그냥 문득 기욱 씨의 생각이 나서요.</p></header>
+<div class="authbar"><small id="authStatus" hidden></small><button id="loginToggle" type="button">작성자 로그인</button><button id="logout" type="button" hidden>로그아웃</button></div>
+<form class="login-panel" id="loginForm" hidden><input type="email" id="email" autocomplete="username" placeholder="이메일" required><input type="password" id="password" autocomplete="current-password" placeholder="비밀번호" required><button type="submit">로그인</button></form>
+<section class="fridge"><div class="count"><div class="since">SINCE 2026.10.18</div><strong id="daycount">D+4</strong><small>우리의 시간은 흐르고 있어요.</small></div>
+<div class="board" id="board"></div>
+<p id="notice" class="notice" aria-live="polite">메모를 불러오는 중이에요…</p>
+<form class="composer" id="composer" hidden><div class="tape"></div><textarea id="message" maxlength="240" placeholder="오늘의 작은 이야기를 남겨 주세요..."></textarea><div id="photoPreview" class="photo-preview" hidden></div><div class="actions"><label class="attach" for="photoInput">＋ 사진 첨부</label><input id="photoInput" type="file" accept="image/*" hidden><button type="submit" id="submitNote">메모 붙이기 ↗</button></div></form>
+<div class="foot">🫧 보글보글. 바다에서 밀려오는 중. 🫧</div></section>
+
+</main>
+<dialog id="photoDialog" class="photo-dialog" onclick="if(event.target===this)this.close()"><button type="button" onclick="document.getElementById('photoDialog').close()" aria-label="사진 닫기">×</button><img id="largePhoto" alt="첨부 사진 확대"></dialog>
+<script type="module" src="./app.js"></script></body></html>
