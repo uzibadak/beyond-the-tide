@@ -31,12 +31,11 @@ async function updateAuth(){
   $('composer').hidden=!canWrite;
   $('logout').hidden=!user;
   $('loginToggle').hidden=!!user || !authorEntry;
-  $('loginForm').hidden=true;
   $('pinLoginForm').hidden=true;
   $('authStatus').textContent=canWrite?'월화의 냉장고 · 메모 작성 중':user?'메모 열람과 익명 답장을 이용할 수 있어요.':'누구나 익명 답장을 남길 수 있어요.';
   render();
 }
-$('loginToggle').onclick=()=>{const show=$('pinLoginForm').hidden;$('pinLoginForm').hidden=!show;$('loginForm').hidden=!show;};
+$('loginToggle').onclick=()=>{const show=$('pinLoginForm').hidden;$('pinLoginForm').hidden=!show;};
 // PINs are never stored in public website code. A Supabase Edge Function must
 // validate the PIN with server-side rate limits and return a scoped session.
 $('pinLoginForm').onsubmit=async e=>{
@@ -52,14 +51,6 @@ $('pinLoginForm').onsubmit=async e=>{
     $('pinCode').value='';await updateAuth();
   }catch(error){console.error(error);alert('코드 로그인이 아직 설정되지 않았거나 코드가 올바르지 않아요.');}
   finally{btn.disabled=false;}
-};
-$('loginForm').onsubmit=async e=>{
-  e.preventDefault();if(!supabase)return;
-  const btn=e.target.querySelector('button');btn.disabled=true;
-  const {error}=await supabase.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
-  btn.disabled=false;$('password').value='';
-  if(error){alert('로그인에 실패했어요. 계정을 확인해 주세요.');return;}
-  await updateAuth();
 };
 $('logout').onclick=async()=>{await supabase.auth.signOut();await updateAuth();};
 const formatDate=iso=>new Date(iso).toLocaleDateString('ko-KR',{month:'numeric',day:'numeric'}).replace(/\s/g,'').replace(/\.$/,'');
