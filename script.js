@@ -85,10 +85,12 @@ const contactButton = document.querySelector('[data-menu="story"]');
 const contactBack = document.getElementById("contactBack");
 function openContact(){ contactPage.classList.add("open"); contactPage.setAttribute("aria-hidden","false"); contactPage.scrollTop=0; }
 function closeContact(){ contactPage.classList.remove("open"); contactPage.setAttribute("aria-hidden","true"); }
-contactButton.addEventListener("click", () => {
-  pushDreamView("contact");
-  waterSwitch(openContact, contactPage);
-});
+if (contactButton) {
+  contactButton.addEventListener("click", () => {
+    pushDreamView("contact");
+    waterSwitch(openContact, contactPage);
+  });
+}
 contactBack.addEventListener("click", goBackInsideSite);
 
 // CAPTURE
