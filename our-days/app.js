@@ -32,10 +32,27 @@ async function updateAuth(){
   $('logout').hidden=!user;
   $('loginToggle').hidden=!!user || !authorEntry;
   $('loginForm').hidden=true;
+  $('pinLoginForm').hidden=true;
   $('authStatus').textContent=canWrite?'월화의 냉장고 · 메모 작성 중':user?'메모 열람과 익명 답장을 이용할 수 있어요.':'누구나 익명 답장을 남길 수 있어요.';
   render();
 }
-$('loginToggle').onclick=()=>{$('loginForm').hidden=!$('loginForm').hidden;};
+$('loginToggle').onclick=()=>{$('pinLoginForm').hidden=!$('pinLoginForm').hidden;};
+// PINs are never stored in public website code. A Supabase Edge Function must
+// validate the PIN with server-side rate limits and return a scoped session.
+$('pinLoginForm').onsubmit=async e=>{
+  e.preventDefault();
+  const code=$('pinCode').value.trim();
+  if(!/^\\d{4}$/.test(code)){alert('숫자 4자리를 입력해 주세요.');return;}
+  const btn=e.target.querySelector('button');btn.disabled=true;
+  try{
+    const {data,error}=await supabase.functions.invoke('our-days-pin-login',{body:{code}});
+    if(error||!data?.access_token||!data?.refresh_token)throw error||new Error('Invalid PIN session');
+    const {error:sessionError}=await supabase.auth.setSession({access_token:data.access_token,refresh_token:data.refresh_token});
+    if(sessionError)throw sessionError;
+    $('pinCode').value='';await updateAuth();
+  }catch(error){console.error(error);alert('코드 로그인이 아직 설정되지 않았거나 코드가 올바르지 않아요.');}
+  finally{btn.disabled=false;}
+};
 $('loginForm').onsubmit=async e=>{
   e.preventDefault();if(!supabase)return;
   const btn=e.target.querySelector('button');btn.disabled=true;
