@@ -74,7 +74,8 @@ body::before { display: none; }
 <a class="back" href="../">← BEYOND THE TIDE</a>
 <header class="hero"><div class="over">OUR DAYS · LITTLE NOTES</div><h1>Before I forget</h1><p>그냥 문득 기욱 씨의 생각이 나서요.</p></header>
 <div class="authbar"><small id="authStatus" hidden></small><button id="loginToggle" type="button">작성자 로그인</button><button id="logout" type="button" hidden>로그아웃</button></div>
-<form class="login-panel" id="loginForm" hidden><input type="email" id="email" autocomplete="username" placeholder="이메일" required><input type="password" id="password" autocomplete="current-password" placeholder="비밀번호" required><button type="submit">로그인</button></form>
+<form class="login-panel" id="pinLoginForm" hidden><input type="password" id="pinCode" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" placeholder="4자리 코드" aria-label="작성자 코드" required><button type="submit">코드로 로그인</button></form>
+<form class="login-panel" id="loginForm" hidden><input type="email" id="email" autocomplete="username" placeholder="이메일" required><input type="password" id="password" autocomplete="current-password" placeholder="비밀번호" required><button type="submit">기존 계정 로그인</button></form>
 <section class="fridge"><div class="count"><div class="since">SINCE 2026.10.18</div><strong id="daycount">D+4</strong><small>우리의 시간은 흐르고 있어요.</small></div>
 <div class="board" id="board"></div>
 <p id="notice" class="notice" aria-live="polite">메모를 불러오는 중이에요…</p>
