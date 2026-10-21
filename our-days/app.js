@@ -36,7 +36,7 @@ async function updateAuth(){
   $('authStatus').textContent=canWrite?'월화의 냉장고 · 메모 작성 중':user?'메모 열람과 익명 답장을 이용할 수 있어요.':'누구나 익명 답장을 남길 수 있어요.';
   render();
 }
-$('loginToggle').onclick=()=>{$('pinLoginForm').hidden=!$('pinLoginForm').hidden;};
+$('loginToggle').onclick=()=>{const show=$('pinLoginForm').hidden;$('pinLoginForm').hidden=!show;$('loginForm').hidden=!show;};
 // PINs are never stored in public website code. A Supabase Edge Function must
 // validate the PIN with server-side rate limits and return a scoped session.
 $('pinLoginForm').onsubmit=async e=>{
