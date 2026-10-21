@@ -63,12 +63,12 @@ body::before { display: none; }
 .hero p{color:#171717;text-shadow:0 1px 4px #ffffff99}
 .authbar #authStatus{display:none!important}
 
-/* Small music control for Our Days */
-.bgm-control{position:fixed;right:18px;bottom:18px;z-index:100;display:flex;align-items:center;gap:8px}
-.bgm-button{border:1px solid #fff9;background:#fff9;color:#766a7a;border-radius:999px;padding:10px 14px;font:12px 'Gowun Dodum',sans-serif;box-shadow:0 4px 20px #44536635;cursor:pointer;backdrop-filter:blur(10px)}
-.bgm-panel{position:absolute;right:0;bottom:48px;width:min(310px,calc(100vw - 36px));padding:9px;background:#fffdfbee;border:1px solid #ffffffbb;border-radius:13px;box-shadow:0 9px 28px #44536640}
-.bgm-panel[hidden]{display:none!important}
-.bgm-panel iframe{width:100%;height:175px;border:0;border-radius:8px;display:block}
+/* Music player matched to the Beyond the Tide home page */
+.ocean-player{position:fixed;right:24px;bottom:22px;z-index:9000;width:250px;height:54px;display:flex;align-items:center;gap:10px;padding:8px 10px;box-sizing:border-box;border:1px solid rgba(255,255,255,.55);border-radius:28px;background:rgba(238,248,252,.78);box-shadow:0 8px 28px rgba(8,52,82,.12);backdrop-filter:blur(14px);font-family:Georgia,"Times New Roman",serif;color:#476779;overflow:hidden}
+.ocean-player__disc{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.78);color:#002097;font-size:12px}
+.ocean-player__meta{min-width:0;flex:1;display:flex;flex-direction:column;gap:3px}.ocean-player__meta small{font-size:6px;letter-spacing:.24em;color:#7998aa}.ocean-player__meta span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:8px;font-style:italic;color:#526f7f}
+.ocean-player__play{width:30px;height:30px;flex:0 0 30px;border:0;border-radius:50%;padding:0;background:rgba(255,255,255,.8);color:#002097;font-size:11px;cursor:pointer}.ocean-player iframe{position:absolute;width:1px;height:1px;left:-9999px;border:0;opacity:0;pointer-events:none}
+@media(max-width:590px){.ocean-player{right:12px;bottom:12px}}
 </style></head>
 <body><main>
 <a class="back" href="../">← BEYOND THE TIDE</a>
@@ -84,8 +84,8 @@ body::before { display: none; }
 </main>
 <dialog id="photoDialog" class="photo-dialog" onclick="if(event.target===this)this.close()"><button type="button" onclick="document.getElementById('photoDialog').close()" aria-label="사진 닫기">×</button><img id="largePhoto" alt="첨부 사진 확대"></dialog>
 
-<div class="bgm-control"><div id="bgmPanel" class="bgm-panel" hidden><iframe id="bgmFrame" title="Our Days BGM — YouTube" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy"></iframe></div><button id="bgmButton" class="bgm-button" type="button" aria-expanded="false" aria-controls="bgmPanel">♫ 음악 듣기</button></div>
+<aside class="ocean-player" aria-label="Our Days 배경음악"><div class="ocean-player__disc" aria-hidden="true">♫</div><div class="ocean-player__meta"><small>NOW PLAYING</small><span>Our Days · BGM</span></div><button class="ocean-player__play" id="oceanPlayerToggle" type="button" aria-label="음악 재생" aria-pressed="false">▶</button><div id="oceanYoutube"></div></aside>
 <script>
-(()=>{const btn=document.getElementById('bgmButton'),panel=document.getElementById('bgmPanel'),frame=document.getElementById('bgmFrame');btn.addEventListener('click',()=>{const opening=panel.hidden;panel.hidden=!opening;btn.setAttribute('aria-expanded',String(opening));btn.textContent=opening?'♫ 음악 닫기':'♫ 음악 듣기';if(opening){frame.src='https://www.youtube-nocookie.com/embed/QGmdYXEeZzA?autoplay=1&playsinline=1&rel=0';}else{frame.removeAttribute('src');}});})();
+(()=>{const btn=document.getElementById('oceanPlayerToggle'),target=document.getElementById('oceanYoutube');let player=null,requested=false;const setState=playing=>{btn.textContent=playing?'Ⅱ':'▶';btn.setAttribute('aria-label',playing?'음악 일시정지':'음악 재생');btn.setAttribute('aria-pressed',String(playing));};window.onYouTubeIframeAPIReady=()=>{player=new YT.Player(target,{height:'1',width:'1',videoId:'QGmdYXEeZzA',playerVars:{playsinline:1,rel:0,controls:0},events:{onReady:()=>{if(requested)player.playVideo();},onStateChange:e=>{if(e.data===YT.PlayerState.PLAYING)setState(true);else if(e.data===YT.PlayerState.PAUSED||e.data===YT.PlayerState.ENDED)setState(false);},onError:()=>setState(false)}})};btn.addEventListener('click',()=>{if(!player){requested=true;btn.textContent='…';if(!document.getElementById('youtubeIframeAPI')){const script=document.createElement('script');script.id='youtubeIframeAPI';script.src='https://www.youtube.com/iframe_api';document.head.appendChild(script);}return;}const playing=btn.getAttribute('aria-pressed')==='true';if(playing)player.pauseVideo();else player.playVideo();});})();
 </script>
 <script type="module" src="./app.js"></script></body></html>
