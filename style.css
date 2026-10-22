@@ -731,3 +731,6 @@ button{font:inherit}
 /* Shared rose-tinted cross-document water transition */
 .water-transition.pink-water{background:radial-gradient(ellipse at 50% 4%,rgba(255,255,255,.80) 0%,rgba(252,241,245,.55) 35%,transparent 70%),linear-gradient(180deg,rgba(250,246,247,.58) 0%,rgba(239,225,233,.68) 52%,rgba(205,207,222,.75) 100%)}
 html.water-arrival .water-transition:not(.rising){visibility:visible!important;opacity:1!important;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+
+/* Keep the mist pastel during the first frame of returning from Our Days / Letters. */
+html.water-arrival #waterTransition{background:radial-gradient(ellipse at 50% 4%,rgba(255,255,255,.80) 0%,rgba(252,241,245,.55) 35%,transparent 70%),linear-gradient(180deg,rgba(250,246,247,.58) 0%,rgba(239,225,233,.68) 52%,rgba(205,207,222,.75) 100%)!important}
