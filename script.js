@@ -32,9 +32,8 @@ function hideMenu(){ overlay.classList.remove("open"); overlay.setAttribute("ari
 
 // Keep each in-site screen in browser history so the browser Back button
 // returns to the previous screen instead of leaving the website.
-const initialDreamView = ["menu", "profile", "contact", "gallery"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "home";
-history.replaceState({ dreamView: "home" }, "", location.pathname + location.search);
-if(initialDreamView !== "home") history.pushState({ dreamView: initialDreamView }, "", "#" + initialDreamView);
+const initialDreamView = new URLSearchParams(location.search).get("return") === "menu" ? "menu" : (["menu", "profile", "contact", "gallery"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "home");
+history.replaceState({ dreamView: initialDreamView }, "", location.pathname + (initialDreamView === "home" ? location.search : "#" + initialDreamView));
 
 function pushDreamView(view){
   history.pushState({ dreamView: view }, "", "#" + view);
@@ -228,8 +227,11 @@ function leaveWithWater(url){
     if(!waterTransition)return;
     if(initialDreamView !== 'home') exactView(initialDreamView);
     waterTransition.classList.remove('diving');
-    waterTransition.classList.add('rising');
-    setTimeout(()=>waterTransition.classList.remove('rising'),580);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      waterTransition.classList.add('rising');
+      document.documentElement.classList.remove('water-arrival');
+      setTimeout(()=>waterTransition.classList.remove('rising'),580);
+    }));
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();
