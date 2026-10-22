@@ -345,21 +345,49 @@ body::before {
   .btn, .field, textarea, .identity-label { border-radius:10px; }
 }
 
-/* Beyond the Tide — soft water transition */
-#letterWaterTransition{position:fixed;inset:0;z-index:99999;pointer-events:none;opacity:0;transform:translateY(105%);background:linear-gradient(180deg,rgba(240,228,239,.95) 0%,rgba(182,210,226,.98) 36%,rgba(91,148,182,.98) 75%,rgba(37,94,139,.99) 100%);border-radius:48% 52% 0 0 / 8% 11% 0 0;will-change:transform,opacity}
-#letterWaterTransition.diving{animation:letterDive .43s cubic-bezier(.45,0,.25,1) forwards}
-#letterWaterTransition.rising{animation:letterRise .58s cubic-bezier(.2,.65,.3,1) forwards}
-@keyframes letterDive{0%{transform:translateY(105%);opacity:1}100%{transform:translateY(0);opacity:1;border-radius:0}}
-@keyframes letterRise{0%{transform:translateY(0);opacity:1;border-radius:0}100%{transform:translateY(-105%);opacity:1}}
+.water-transition{
+  position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:0;visibility:hidden;
+  background:
+    radial-gradient(ellipse at 50% -8%,rgba(255,255,255,.72) 0%,rgba(196,237,245,.34) 25%,transparent 52%),
+    linear-gradient(180deg,rgba(189,235,243,.18) 0%,rgba(79,177,202,.48) 46%,rgba(15,79,119,.78) 100%);
+  backdrop-filter:blur(0px);
+  -webkit-backdrop-filter:blur(0px);
+}
+.water-transition::before{
+  content:"";position:absolute;inset:-12%;
+  background:radial-gradient(ellipse at 50% 10%,rgba(255,255,255,.45),transparent 42%);
+  transform:translateY(-12%);opacity:0;
+}
+.water-transition .water-glow{
+  position:absolute;left:-10%;right:-10%;top:-18%;height:45%;
+  background:linear-gradient(180deg,rgba(255,255,255,.52),rgba(213,247,250,.16),transparent);
+  filter:blur(16px);opacity:0;transform:translateY(-20%);
+}
+.water-transition.diving{visibility:visible;animation:waterDive .44s cubic-bezier(.42,0,.58,1) forwards}
+.water-transition.diving::before{animation:waterVeilIn .44s ease forwards}
+.water-transition.diving .water-glow{animation:waterGlowIn .44s ease forwards}
+.water-transition.rising{visibility:visible;animation:waterRise .58s cubic-bezier(.2,.72,.25,1) forwards}
+.water-transition.rising::before{animation:waterVeilOut .58s ease forwards}
+.water-transition.rising .water-glow{animation:waterGlowOut .58s ease forwards}
+@keyframes waterDive{0%{opacity:0;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0)}100%{opacity:1;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}}
+@keyframes waterRise{0%{opacity:1;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}100%{opacity:0;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0)}}
+@keyframes waterVeilIn{0%{opacity:0;transform:translateY(-12%)}100%{opacity:.8;transform:translateY(10%)}}
+@keyframes waterVeilOut{0%{opacity:.8;transform:translateY(10%)}100%{opacity:0;transform:translateY(-18%)}}
+@keyframes waterGlowIn{0%{opacity:0;transform:translateY(-20%)}100%{opacity:.8;transform:translateY(28%)}}
+@keyframes waterGlowOut{0%{opacity:.8;transform:translateY(28%)}100%{opacity:0;transform:translateY(-18%)}}
+
+
+#letterWaterTransition.water-transition{z-index:99999}
 .letter-home-link{display:inline-block;text-decoration:none;color:inherit;font-size:11px;letter-spacing:.15em;border-bottom:1px solid currentColor;padding-bottom:4px}
-@media(prefers-reduced-motion:reduce){#letterWaterTransition.diving,#letterWaterTransition.rising{animation-duration:.01ms}}
+@media(prefers-reduced-motion:reduce){#letterWaterTransition.diving,#letterWaterTransition.rising{animation-duration:.01ms!important}}
 </style>
 </head>
 <body>
-<div id="letterWaterTransition" aria-hidden="true"></div>
+<div id="letterWaterTransition" class="water-transition" aria-hidden="true"><span class="water-glow"></span></div>
 <div class="shell">
 <div class="top">
-<a class="letter-home-link" href="../" id="letterHomeLink">← BACK TO MENU</a>
+<a class="letter-home-link" href="../#menu" id="letterHomeLink">← BACK TO MENU</a>
 <span>
      BEYOND THE TIDE
     </span>
@@ -499,14 +527,20 @@ const el = (tag, cls='', value) => { const n=document.createElement(tag); if(cls
    letterWater.classList.remove('rising','diving');
    void letterWater.offsetWidth;
    letterWater.classList.add('diving');
-   await letterWait(440);
+   await letterWait(390);
    change();
    letterWater.classList.remove('diving');
    void letterWater.offsetWidth;
    letterWater.classList.add('rising');
-   await letterWait(590);
+   await letterWait(570);
    letterWater.classList.remove('rising');
    letterTransitionBusy=false;
+ }
+
+ if(sessionStorage.getItem('btt-water-arrival')==='1'){
+  sessionStorage.removeItem('btt-water-arrival');
+  letterWater.classList.add('rising');
+  setTimeout(()=>letterWater.classList.remove('rising'),580);
  }
  function show(id){
    const change=()=>{sections.forEach(x=>$(x).classList.toggle('hidden',x!==id));activeLetterSection=id;window.scrollTo({top:0,behavior:'instant'});};
@@ -516,6 +550,7 @@ const el = (tag, cls='', value) => { const n=document.createElement(tag); if(cls
  $('letterHomeLink').addEventListener('click',e=>{
    e.preventDefault();
    const destination=e.currentTarget.href;
+   sessionStorage.setItem('btt-water-arrival','1');
    letterWaterSwitch(()=>{window.location.assign(destination);});
  });
 function notice(message){$('gateMessage').textContent=message;}
