@@ -2,8 +2,6 @@ import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2
 import {SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY} from './config.js';
 
 const $=id=>document.getElementById(id);
-// Show the author sign-in only through the private entry URL (?admin=1).
-const authorEntry=new URLSearchParams(window.location.search).get('admin')==='1';
 const ready=!SUPABASE_URL.includes('YOUR_PROJECT')&&!SUPABASE_PUBLISHABLE_KEY.includes('YOUR_');
 const supabase=ready?createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY):null;
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -30,7 +28,7 @@ async function updateAuth(){
   }
   $('composer').hidden=!canWrite;
   $('logout').hidden=!user;
-  $('loginToggle').hidden=!!user || !authorEntry;
+  $('loginToggle').hidden=!!user;
   $('pinLoginForm').hidden=true;
   $('authStatus').textContent=canWrite?'월화의 냉장고 · 메모 작성 중':user?'메모 열람과 익명 답장을 이용할 수 있어요.':'누구나 익명 답장을 남길 수 있어요.';
   render();
