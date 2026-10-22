@@ -226,6 +226,7 @@ function leaveWithWater(url){
   sessionStorage.removeItem('btt-water-arrival');
   const start=()=>{
     if(!waterTransition)return;
+    if(initialDreamView !== 'home') exactView(initialDreamView);
     waterTransition.classList.remove('diving');
     waterTransition.classList.add('rising');
     setTimeout(()=>waterTransition.classList.remove('rising'),580);
