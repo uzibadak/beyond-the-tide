@@ -98,7 +98,10 @@ const galleryPage = document.getElementById("galleryPage");
 const galleryButton = document.querySelector('[data-menu="gallery"]');
 const galleryBack = document.getElementById("galleryBack");
 const galleryFilters = [...document.querySelectorAll('.gallery-filters button')];
-const galleryItems = [...document.querySelectorAll('.gallery-item')];
+// New entries are appended to the gallery HTML; show the newest first.
+const galleryGrid = document.getElementById('galleryGrid');
+const galleryItems = [...document.querySelectorAll('.gallery-item')].reverse();
+if (galleryGrid) galleryItems.forEach(item => galleryGrid.appendChild(item));
 const galleryLightbox = document.getElementById('galleryLightbox');
 const lightboxImage = document.getElementById('lightboxImage');
 const lightboxVideo = document.getElementById('lightboxVideo');
