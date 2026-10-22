@@ -7,6 +7,7 @@ function wait(ms){ return new Promise(resolve => setTimeout(resolve, ms)); }
 async function waterSwitch(changeView, destination){
   if(transitionBusy) return;
   transitionBusy = true;
+  waterTransition.classList.toggle("pink-water",!!(changeView && changeView.toString().includes("leaveWithWater")));
   waterTransition.classList.remove("rising");
   void waterTransition.offsetWidth;
   waterTransition.classList.add("diving");
