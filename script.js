@@ -215,3 +215,20 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&checklistLightbox?.
 
 // Open the requested section immediately when arriving through a shared deep link.
 if(initialDreamView !== "home") exactView(initialDreamView);
+
+/* Continue the existing waterSwitch transition across document navigation. */
+function leaveWithWater(url){
+  sessionStorage.setItem('btt-water-arrival','1');
+  window.location.assign(url);
+}
+(function resumeWaterArrival(){
+  if(sessionStorage.getItem('btt-water-arrival')!=='1')return;
+  sessionStorage.removeItem('btt-water-arrival');
+  const start=()=>{
+    if(!waterTransition)return;
+    waterTransition.classList.remove('diving');
+    waterTransition.classList.add('rising');
+    setTimeout(()=>waterTransition.classList.remove('rising'),580);
+  };
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+})();
