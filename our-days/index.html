@@ -70,12 +70,42 @@ body::before { display: none; }
 .ocean-player__play{width:30px;height:30px;flex:0 0 30px;border:0;border-radius:50%;padding:0;background:rgba(255,255,255,.8);color:#002097;font-size:11px;cursor:pointer}.ocean-player iframe{position:absolute;width:1px;height:1px;left:-9999px;border:0;opacity:0;pointer-events:none}
 @media(max-width:590px){.ocean-player{right:12px;bottom:12px}}
 
-/* Ocean transition when returning to the main menu */
-.ocean-exit{position:fixed;inset:0;z-index:99999;pointer-events:none;opacity:0;background:linear-gradient(180deg,rgba(232,244,249,.16),rgba(113,177,205,.70) 42%,rgba(24,84,123,.95));transform:translateY(105%);border-radius:50% 50% 0 0/9% 9% 0 0;transition:transform .58s cubic-bezier(.4,0,.2,1),opacity .58s ease}
-.ocean-exit.active{opacity:1;transform:translateY(0);border-radius:0}
-@media(prefers-reduced-motion:reduce){.ocean-exit{transition:none}}
+.water-transition{
+  position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:0;visibility:hidden;
+  background:
+    radial-gradient(ellipse at 50% -8%,rgba(255,255,255,.72) 0%,rgba(196,237,245,.34) 25%,transparent 52%),
+    linear-gradient(180deg,rgba(189,235,243,.18) 0%,rgba(79,177,202,.48) 46%,rgba(15,79,119,.78) 100%);
+  backdrop-filter:blur(0px);
+  -webkit-backdrop-filter:blur(0px);
+}
+.water-transition::before{
+  content:"";position:absolute;inset:-12%;
+  background:radial-gradient(ellipse at 50% 10%,rgba(255,255,255,.45),transparent 42%);
+  transform:translateY(-12%);opacity:0;
+}
+.water-transition .water-glow{
+  position:absolute;left:-10%;right:-10%;top:-18%;height:45%;
+  background:linear-gradient(180deg,rgba(255,255,255,.52),rgba(213,247,250,.16),transparent);
+  filter:blur(16px);opacity:0;transform:translateY(-20%);
+}
+.water-transition.diving{visibility:visible;animation:waterDive .44s cubic-bezier(.42,0,.58,1) forwards}
+.water-transition.diving::before{animation:waterVeilIn .44s ease forwards}
+.water-transition.diving .water-glow{animation:waterGlowIn .44s ease forwards}
+.water-transition.rising{visibility:visible;animation:waterRise .58s cubic-bezier(.2,.72,.25,1) forwards}
+.water-transition.rising::before{animation:waterVeilOut .58s ease forwards}
+.water-transition.rising .water-glow{animation:waterGlowOut .58s ease forwards}
+@keyframes waterDive{0%{opacity:0;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0)}100%{opacity:1;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}}
+@keyframes waterRise{0%{opacity:1;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}100%{opacity:0;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0)}}
+@keyframes waterVeilIn{0%{opacity:0;transform:translateY(-12%)}100%{opacity:.8;transform:translateY(10%)}}
+@keyframes waterVeilOut{0%{opacity:.8;transform:translateY(10%)}100%{opacity:0;transform:translateY(-18%)}}
+@keyframes waterGlowIn{0%{opacity:0;transform:translateY(-20%)}100%{opacity:.8;transform:translateY(28%)}}
+@keyframes waterGlowOut{0%{opacity:.8;transform:translateY(28%)}100%{opacity:0;transform:translateY(-18%)}}
+
+
+@media(prefers-reduced-motion:reduce){.water-transition,.water-transition::before,.water-transition .water-glow{animation-duration:.01ms!important}}
 </style></head>
-<body><div class="ocean-exit" id="oceanExit" aria-hidden="true"></div><main>
+<body><div class="water-transition" id="oceanExit" aria-hidden="true"><div class="water-glow"></div></div><main>
 <a class="back" href="../">← BEYOND THE TIDE</a>
 <header class="hero"><div class="over">OUR DAYS · LITTLE NOTES</div><h1>Before I forget</h1><p>그냥 문득 기욱 씨의 생각이 나서요.</p></header>
 <div class="authbar"><small id="authStatus" hidden></small><button id="loginToggle" type="button">작성자 로그인</button><button id="logout" type="button" hidden>로그아웃</button></div>
@@ -95,6 +125,6 @@ body::before { display: none; }
 (()=>{const btn=document.getElementById('oceanPlayerToggle'),target=document.getElementById('oceanYoutube');let player=null,requested=false;const setState=playing=>{btn.textContent=playing?'Ⅱ':'▶';btn.setAttribute('aria-label',playing?'음악 일시정지':'음악 재생');btn.setAttribute('aria-pressed',String(playing));};window.onYouTubeIframeAPIReady=()=>{player=new YT.Player(target,{height:'1',width:'1',videoId:'QGmdYXEeZzA',playerVars:{playsinline:1,rel:0,controls:0},events:{onReady:()=>{if(requested)player.playVideo();},onStateChange:e=>{if(e.data===YT.PlayerState.PLAYING)setState(true);else if(e.data===YT.PlayerState.PAUSED||e.data===YT.PlayerState.ENDED)setState(false);},onError:()=>setState(false)}})};btn.addEventListener('click',()=>{if(!player){requested=true;btn.textContent='…';if(!document.getElementById('youtubeIframeAPI')){const script=document.createElement('script');script.id='youtubeIframeAPI';script.src='https://www.youtube.com/iframe_api';document.head.appendChild(script);}return;}const playing=btn.getAttribute('aria-pressed')==='true';if(playing)player.pauseVideo();else player.playVideo();});})();
 </script>
 <script>
-(()=>{const back=document.querySelector('a.back'),wave=document.getElementById('oceanExit');if(!back||!wave)return;back.addEventListener('click',e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;e.preventDefault();wave.classList.add('active');setTimeout(()=>window.location.assign(back.href),560);});})();
+(()=>{const back=document.querySelector('a.back'),wave=document.getElementById('oceanExit');if(!back||!wave)return;back.addEventListener('click',e=>{if(e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;e.preventDefault();wave.classList.add('diving');setTimeout(()=>window.location.assign(back.href),440);});})();
 </script>
 <script type="module" src="./app.js"></script></body></html>
