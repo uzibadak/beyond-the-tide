@@ -344,11 +344,22 @@ body::before {
   .panel { padding:26px 20px; border-radius:18px; }
   .btn, .field, textarea, .identity-label { border-radius:10px; }
 }
+
+/* Beyond the Tide — soft water transition */
+#letterWaterTransition{position:fixed;inset:0;z-index:99999;pointer-events:none;opacity:0;transform:translateY(105%);background:linear-gradient(180deg,rgba(240,228,239,.95) 0%,rgba(182,210,226,.98) 36%,rgba(91,148,182,.98) 75%,rgba(37,94,139,.99) 100%);border-radius:48% 52% 0 0 / 8% 11% 0 0;will-change:transform,opacity}
+#letterWaterTransition.diving{animation:letterDive .43s cubic-bezier(.45,0,.25,1) forwards}
+#letterWaterTransition.rising{animation:letterRise .58s cubic-bezier(.2,.65,.3,1) forwards}
+@keyframes letterDive{0%{transform:translateY(105%);opacity:1}100%{transform:translateY(0);opacity:1;border-radius:0}}
+@keyframes letterRise{0%{transform:translateY(0);opacity:1;border-radius:0}100%{transform:translateY(-105%);opacity:1}}
+.letter-home-link{display:inline-block;text-decoration:none;color:inherit;font-size:11px;letter-spacing:.15em;border-bottom:1px solid currentColor;padding-bottom:4px}
+@media(prefers-reduced-motion:reduce){#letterWaterTransition.diving,#letterWaterTransition.rising{animation-duration:.01ms}}
 </style>
 </head>
 <body>
+<div id="letterWaterTransition" aria-hidden="true"></div>
 <div class="shell">
 <div class="top">
+<a class="letter-home-link" href="../" id="letterHomeLink">← BACK TO MENU</a>
 <span>
      BEYOND THE TIDE
     </span>
@@ -479,7 +490,34 @@ let user=null, letters=[], comments=[], current=null, filter='all', editingId=nu
 const nameOf = id => MEMBERS[id] || '알 수 없음';
 const dateOf = value => new Date(value).toLocaleDateString('ko-KR');
 const el = (tag, cls='', value) => { const n=document.createElement(tag); if(cls)n.className=cls; if(value!==undefined)n.textContent=value; return n; };
-function show(id){ sections.forEach(x=>$(x).classList.toggle('hidden',x!==id)); window.scrollTo({top:0,behavior:'smooth'}); }
+ let activeLetterSection='gate', letterTransitionBusy=false;
+ const letterWater=$('letterWaterTransition');
+ const letterWait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+ async function letterWaterSwitch(change){
+   if(letterTransitionBusy)return;
+   letterTransitionBusy=true;
+   letterWater.classList.remove('rising','diving');
+   void letterWater.offsetWidth;
+   letterWater.classList.add('diving');
+   await letterWait(440);
+   change();
+   letterWater.classList.remove('diving');
+   void letterWater.offsetWidth;
+   letterWater.classList.add('rising');
+   await letterWait(590);
+   letterWater.classList.remove('rising');
+   letterTransitionBusy=false;
+ }
+ function show(id){
+   const change=()=>{sections.forEach(x=>$(x).classList.toggle('hidden',x!==id));activeLetterSection=id;window.scrollTo({top:0,behavior:'instant'});};
+   if(activeLetterSection===id){change();return;}
+   letterWaterSwitch(change);
+ }
+ $('letterHomeLink').addEventListener('click',e=>{
+   e.preventDefault();
+   const destination=e.currentTarget.href;
+   letterWaterSwitch(()=>{window.location.assign(destination);});
+ });
 function notice(message){$('gateMessage').textContent=message;}
 function authRequired(){ if(!user){show('gate');notice('다시 로그인해 주세요.');return false;}return true; }
 function showError(error){ console.error('Letterbox request error:',error?.message||error); alert('작업을 완료하지 못했어요. '+(error?.message||'잠시 후 다시 시도해 주세요.')); }
