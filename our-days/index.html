@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Our Days · Beyond the Tide</title><script>try{if(sessionStorage.getItem("btt-water-arrival")==="1")document.documentElement.classList.add("water-arrival")}catch(e){}</script>
-<link rel="stylesheet" href="../style.css?v=20261022-rose2"><style>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap');
 :root{--ink:#585763;--muted:#8f8a94}*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:'Gowun Dodum',sans-serif;background:linear-gradient(155deg,#f9f5f6,#f1e9ed 50%,#dce8ed);min-height:100vh}body:before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 10% 10%,#fff9 0,transparent 55%),radial-gradient(ellipse at 85% 95%,#d9d7e580 0,transparent 55%)}main{position:relative;max-width:880px;margin:45px auto 90px;padding:0 18px}.back{font-size:12px;letter-spacing:.2em;color:#888;text-decoration:none}.hero{text-align:center;margin:25px 0 30px}.over{letter-spacing:.3em;font-size:10px;color:#a29aa5}.hero h1{font-family:Georgia,serif;font-weight:400;font-size:36px;letter-spacing:.04em;margin:9px 0}.hero p{font-size:12px;color:#89828b}.fridge{position:relative;border:1px solid #fff;background:linear-gradient(125deg,#faf9f5,#f4f2ef 55%,#f9f8f5);box-shadow:0 24px 65px #69778625,inset 0 0 35px #ffffffbb;border-radius:23px;padding:30px 34px 65px;overflow:hidden}.fridge:after{content:'';position:absolute;right:18px;top:55px;bottom:55px;width:4px;border-radius:4px;background:linear-gradient(90deg,#e7e5e1,#fff,#e8e5e2);opacity:.6}.count{text-align:center;margin:0 auto 35px;padding:18px 10px 23px;border-bottom:1px solid #d8d2d0}.count .since{font-family:Georgia,serif;font-size:11px;letter-spacing:.22em;color:#a29ba2}.count strong{display:block;font-family:Georgia,serif;font-size:49px;font-weight:400;color:#8e8290;margin:4px}.count small{color:#aaa0a5;font-size:12px}.board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 26px;align-items:start;padding:6px 12px}.note{position:relative;padding:28px 22px 18px;background:#fff8e9;box-shadow:2px 8px 14px #7e777126,0 1px 2px #a69a8930;transform:rotate(-1.5deg);min-height:180px;transition:transform .2s}.note:nth-child(2n){background:#f0f4f7;transform:rotate(1.8deg)}.note:nth-child(3n){background:#f8eff2;transform:rotate(.7deg)}.note:hover{transform:rotate(0deg) translateY(-2px)}.magnet{position:absolute;top:-11px;left:calc(50% - 11px);width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#fff,#c6a6b8 42%,#957b91 100%);box-shadow:1px 3px 4px #7775;border:2px solid #fff8}.note:nth-child(2n) .magnet{background:radial-gradient(circle at 34% 28%,#fff,#a8c6d1 42%,#7d9fae)}.notehead{display:flex;align-items:center;justify-content:space-between;gap:6px;color:#8d828b;font-size:11px}.who{font-weight:bold;letter-spacing:.03em}.content{font-family:'Nanum Pen Script','Gowun Dodum',cursive;font-size:27px;line-height:1.18;white-space:pre-wrap;overflow-wrap:anywhere;margin:19px 0 18px}.replytoggle{border:0;background:none;color:#998b95;font-family:inherit;font-size:11px;cursor:pointer;padding:0}.replies{margin-top:15px;border-top:1px dashed #cfc4c5;padding-top:12px}.reply{font-size:12px;margin:0 0 10px;line-height:1.7}.reply b{color:#807686}.replyform{display:flex;gap:5px;margin-top:10px}.replyform input{width:100%;min-width:0;border:0;border-bottom:1px solid #c9c2c1;background:transparent;padding:7px 3px;outline:none;font:inherit;font-size:12px}.replyform button{border:0;background:transparent;color:#9b8192;cursor:pointer}.composer{margin:40px auto 0;max-width:480px;background:#fffbf2;box-shadow:3px 7px 18px #847b7525;position:relative;padding:30px 26px 23px;transform:rotate(.4deg)}.tape{position:absolute;top:-12px;left:42%;height:25px;width:75px;background:#e7d5d6aa;transform:rotate(-5deg)}.composer h2{font-family:Georgia,serif;font-size:18px;font-weight:400;margin:0 0 12px;color:#8b7f8a}.composer textarea{width:100%;height:78px;resize:vertical;border:0;background:transparent;outline:0;font:23px 'Nanum Pen Script',cursive;color:#655b66}.actions{display:flex;align-items:center;justify-content:space-between;gap:10px}.actions select{background:transparent;border:0;color:#8c808b;font-family:inherit;font-size:12px}.actions button{border:1px solid #cbb8c1;border-radius:22px;padding:8px 17px;background:#f5e7eb;color:#806978;cursor:pointer;font:12px 'Gowun Dodum',sans-serif}.foot{text-align:center;color:#aaa0a5;font-size:11px;margin-top:28px}.hint{text-align:center;color:#918b94;font-size:12px;margin-top:18px}@media(max-width:590px){main{margin:20px auto;padding:0 10px}.fridge{padding:25px 17px 45px}.board{grid-template-columns:1fr;gap:28px;padding:5px 12px}.note{min-height:145px}.hero h1{font-size:30px}.count strong{font-size:43px}}
 
@@ -104,6 +104,45 @@ body::before { display: none; }
 
 
 @media(prefers-reduced-motion:reduce){.water-transition,.water-transition::before,.water-transition .water-glow{animation-duration:.01ms!important}}
+
+/* Isolated transition styles — avoid homepage layout rules affecting notes */
+.water-transition{
+  position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:0;visibility:hidden;
+  background:
+    radial-gradient(ellipse at 50% -8%,rgba(255,255,255,.72) 0%,rgba(196,237,245,.34) 25%,transparent 52%),
+    linear-gradient(180deg,rgba(189,235,243,.18) 0%,rgba(79,177,202,.48) 46%,rgba(15,79,119,.78) 100%);
+  backdrop-filter:blur(0px);
+  -webkit-backdrop-filter:blur(0px);
+}
+.water-transition::before{
+  content:"";position:absolute;inset:-12%;
+  background:radial-gradient(ellipse at 50% 10%,rgba(255,255,255,.45),transparent 42%);
+  transform:translateY(-12%);opacity:0;
+}
+.water-transition .water-glow{
+  position:absolute;left:-10%;right:-10%;top:-18%;height:45%;
+  background:linear-gradient(180deg,rgba(255,255,255,.52),rgba(213,247,250,.16),transparent);
+  filter:blur(16px);opacity:0;transform:translateY(-20%);
+}
+.water-transition.diving{visibility:visible;animation:waterDive .44s cubic-bezier(.42,0,.58,1) forwards}
+.water-transition.diving::before{animation:waterVeilIn .44s ease forwards}
+.water-transition.diving .water-glow{animation:waterGlowIn .44s ease forwards}
+.water-transition.rising{visibility:visible;animation:waterRise .58s cubic-bezier(.2,.72,.25,1) forwards}
+.water-transition.rising::before{animation:waterVeilOut .58s ease forwards}
+.water-transition.rising .water-glow{animation:waterGlowOut .58s ease forwards}
+@keyframes waterDive{0%{opacity:0;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0)}100%{opacity:1;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}}
+@keyframes waterRise{0%{opacity:1;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}100%{opacity:0;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0)}}
+@keyframes waterVeilIn{0%{opacity:0;transform:translateY(-12%)}100%{opacity:.8;transform:translateY(10%)}}
+@keyframes waterVeilOut{0%{opacity:.8;transform:translateY(10%)}100%{opacity:0;transform:translateY(-18%)}}
+@keyframes waterGlowIn{0%{opacity:0;transform:translateY(-20%)}100%{opacity:.8;transform:translateY(28%)}}
+@keyframes waterGlowOut{0%{opacity:.8;transform:translateY(28%)}100%{opacity:0;transform:translateY(-18%)}}
+
+
+/* Shared rose-tinted cross-document water transition */
+.water-transition.pink-water{background:radial-gradient(ellipse at 50% -8%,rgba(255,255,255,.75) 0%,rgba(255,230,239,.40) 28%,transparent 55%),linear-gradient(180deg,rgba(249,220,233,.24) 0%,rgba(221,157,188,.52) 48%,rgba(156,93,137,.80) 100%)}
+html.water-arrival .water-transition:not(.rising){visibility:visible!important;opacity:1!important;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+
 </style></head>
 <body><div class="water-transition pink-water" id="oceanExit" aria-hidden="true"><div class="water-glow"></div></div><main>
 <a class="back" href="../?return=menu#menu">← BEYOND THE TIDE</a>
