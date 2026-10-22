@@ -227,6 +227,7 @@ function leaveWithWater(url){
   const start=()=>{
     if(!waterTransition)return;
     if(initialDreamView !== 'home') exactView(initialDreamView);
+    waterTransition.classList.add('pink-water');
     waterTransition.classList.remove('diving');
     requestAnimationFrame(()=>requestAnimationFrame(()=>{
       waterTransition.classList.add('rising');
