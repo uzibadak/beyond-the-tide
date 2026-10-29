@@ -677,7 +677,7 @@ $('bgmToggle').onclick=()=>{
  const box=$('bgmFrame'),player=$('letterBgm');
  if(letterBgmPlaying){box.replaceChildren();player.classList.remove('is-open');$('bgmToggle').textContent='▷';$('bgmToggle').setAttribute('aria-label','음악 재생');letterBgmPlaying=false;return;}
  const frame=document.createElement('iframe');
- frame.src='https://www.youtube-nocookie.com/embed/7C_jx4Zgp3Y?autoplay=1&loop=1&playlist=7C_jx4Zgp3Y';
+ frame.src='https://www.youtube.com/embed/7C_jx4Zgp3Y?autoplay=1&loop=1&playlist=7C_jx4Zgp3Y';
  frame.allow='autoplay; encrypted-media; picture-in-picture';
  frame.allowFullscreen=true;
  frame.title='THE LIQUID RAY - yohaku #4';
