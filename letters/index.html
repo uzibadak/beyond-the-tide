@@ -511,16 +511,16 @@ html.water-arrival #letterWaterTransition:not(.rising){visibility:visible!import
 <label class="letter-field-label" for="author">FROM</label>
 <div class="identity-label" id="author"></div>
 <input class="field" id="title" placeholder="Letter title"/>
-<div class="letter-tools"><button type="button" id="addLink">🔗 링크</button><button type="button" id="addPhoto">▧ 사진 여러 장</button><button type="button" id="addStationery">✿ 이 편지의 배경</button><input type="file" id="photoFiles" accept="image/*" multiple hidden><input type="file" id="stationeryFile" accept="image/*" hidden></div><p class="letter-tools-note">글씨를 선택하고 링크 버튼을 누르세요. 사진은 커서 위치에 삽입됩니다. 편지지 배경도 사진 파일을 선택하면 이 편지에만 적용돼요.</p><textarea id="body" placeholder="Write your words here..."></textarea>
+<div class="letter-tools"><button type="button" id="addLink">🔗 링크</button><button type="button" id="addPhoto">▧ 사진 첨부</button><button type="button" id="addStationery">✿ 편지지 배경</button><input type="file" id="photoFiles" accept="image/*" multiple hidden><input type="file" id="stationeryFile" accept="image/*" hidden></div><p class="letter-tools-note">글씨를 선택하고 링크 버튼을 누르세요. 사진은 커서 위치에 삽입됩니다. 편지지 배경도 사진 파일을 선택하면 이 편지에만 적용돼요.</p><textarea id="body" placeholder="Write your words here..."></textarea>
 </div>
 <div class="actions">
 <button class="btn primary" id="save">
       SEND TO OUR LETTERBOX →
      </button>
 </div>
-<p class="notice">편지는 제가 안전하게 보관하고 있어요!</p>
+<p class="notice">당신을 언제나 생각해요.</p>
 </section>
-<div class="letter-bgm" id="letterBgm"><span>♫ yohaku #4</span><button type="button" id="bgmToggle" aria-label="음악 재생">▷ 재생</button><div id="bgmFrame"></div></div><div class="foot">
+<div class="letter-bgm" id="letterBgm"><span>♫ yohaku #4</span><button type="button" id="bgmToggle" aria-label="음악 재생">▷</button><div id="bgmFrame"></div></div><div class="foot">
     기욱 / 최월화 · SINCE 2026.10.18
    </div>
 </div>
@@ -671,8 +671,8 @@ $('stationeryFile').onchange=async event=>{
 let letterBgmPlaying=false;
 $('bgmToggle').onclick=()=>{
  const box=$('bgmFrame');
- if(letterBgmPlaying){box.replaceChildren();$('bgmToggle').textContent='▷ 재생';letterBgmPlaying=false;return;}
- const frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/7C_jx4Zgp3Y?autoplay=1&loop=1&playlist=7C_jx4Zgp3Y';frame.allow='autoplay; encrypted-media';frame.title='yohaku #4';box.replaceChildren(frame);$('bgmToggle').textContent='Ⅱ 정지';letterBgmPlaying=true;
+ if(letterBgmPlaying){box.replaceChildren();$('bgmToggle').textContent='▷';letterBgmPlaying=false;return;}
+ const frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/7C_jx4Zgp3Y?autoplay=1&loop=1&playlist=7C_jx4Zgp3Y';frame.allow='autoplay; encrypted-media';frame.title='yohaku #4';box.replaceChildren(frame);$('bgmToggle').textContent='Ⅱ';letterBgmPlaying=true;
 };
 
 function read(id){
