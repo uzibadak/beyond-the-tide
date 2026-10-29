@@ -661,7 +661,7 @@ $('stationeryFile').onchange=async event=>{
   canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
   let data=canvas.toDataURL('image/jpeg',.65);
   const area=$('body');
-  const previous=area.value.replace(/\\[\\[BG\\|[^\\]]*\\]\\]\\n?/g,'');
+  const previous=area.value.replace(/\[\[BG\|[^\]]*\]\]\n?/g,'');
   if(previous.length+data.length>450000){alert('편지지 이미지 용량이 너무 커요. 더 작은 이미지를 선택해 주세요.');return;}
   area.value='[[BG|'+data+']]\n'+previous;
   area.focus();
