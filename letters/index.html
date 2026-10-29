@@ -396,6 +396,13 @@ html.water-arrival #letterWaterTransition:not(.rising){visibility:visible!import
 .letter-bgm button{border:0;background:transparent;color:#6c485c;cursor:pointer;font-family:inherit;font-size:13px}
 .letter-bgm iframe{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
 @media(max-width:600px){.letter-bgm{bottom:12px;right:12px}.detail.has-stationery{padding:15px}}
+
+/* Letter playlist link and player label colors */
+.bodytext a,.bodytext a:visited{color:#80506d!important}
+.bodytext a:hover,.bodytext a:focus-visible{color:#a06a86!important}
+.letter-bgm,.letter-bgm span{color:#80506d!important}
+.letter-bgm button,.letter-bgm button:visited{color:#80506d!important}
+.letter-bgm button:hover{color:#a06a86!important}
 </style>
 </head>
 <body>
@@ -504,7 +511,7 @@ html.water-arrival #letterWaterTransition:not(.rising){visibility:visible!import
 <label class="letter-field-label" for="author">FROM</label>
 <div class="identity-label" id="author"></div>
 <input class="field" id="title" placeholder="Letter title"/>
-<div class="letter-tools"><button type="button" id="addLink">🔗 링크</button><button type="button" id="addPhoto">▧ 사진 여러 장</button><button type="button" id="addStationery">✿ 이 편지의 배경</button><input type="file" id="photoFiles" accept="image/*" multiple hidden></div><p class="letter-tools-note">글씨를 선택하고 링크 버튼을 누르세요. 사진은 커서 위치에 삽입됩니다. 배경은 이 편지에만 적용돼요.</p><textarea id="body" placeholder="Write your words here..."></textarea>
+<div class="letter-tools"><button type="button" id="addLink">🔗 링크</button><button type="button" id="addPhoto">▧ 사진 여러 장</button><button type="button" id="addStationery">✿ 이 편지의 배경</button><input type="file" id="photoFiles" accept="image/*" multiple hidden><input type="file" id="stationeryFile" accept="image/*" hidden></div><p class="letter-tools-note">글씨를 선택하고 링크 버튼을 누르세요. 사진은 커서 위치에 삽입됩니다. 편지지 배경도 사진 파일을 선택하면 이 편지에만 적용돼요.</p><textarea id="body" placeholder="Write your words here..."></textarea>
 </div>
 <div class="actions">
 <button class="btn primary" id="save">
@@ -611,7 +618,7 @@ function renderLetterBody(raw){
  }
  box.append(document.createTextNode(text.slice(pos)));
  const detail=box.closest('.detail');
- if(detail){detail.classList.toggle('has-stationery',!!bg);detail.style.backgroundImage=bg.startsWith('https://')?'url("'+bg.replaceAll('"','')+'")':'';}
+ if(detail){detail.classList.toggle('has-stationery',!!bg);detail.style.backgroundImage=(bg.startsWith('https://')||bg.startsWith('data:image/jpeg;base64,')||bg.startsWith('data:image/png;base64,')||bg.startsWith('data:image/webp;base64,'))?'url("'+bg.replaceAll('"','')+'")':'';}
 }
 function insertAtCursor(value){
  const area=$('body');area.setRangeText(value,area.selectionStart,area.selectionEnd,'end');area.focus();
@@ -640,9 +647,26 @@ $('photoFiles').onchange=async event=>{
  }
  event.target.value='';
 };
-$('addStationery').onclick=()=>{
- const url=prompt('이 편지의 배경 이미지 주소 (https://)');
- if(url&&url.startsWith('https://'))insertAtCursor('[[BG|'+url+']]\n');
+$('addStationery').onclick=()=>$('stationeryFile').click();
+$('stationeryFile').onchange=async event=>{
+ const file=event.target.files?.[0];if(!file)return;
+ if(!file.type.startsWith('image/')){alert('이미지 파일을 선택해 주세요.');return;}
+ const objectUrl=window.URL.createObjectURL(file),img=new Image();
+ try{
+  await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=objectUrl;});
+  const scale=Math.min(1,1200/Math.max(img.width,img.height));
+  const canvas=document.createElement('canvas');
+  canvas.width=Math.max(1,Math.round(img.width*scale));
+  canvas.height=Math.max(1,Math.round(img.height*scale));
+  canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+  let data=canvas.toDataURL('image/jpeg',.65);
+  const area=$('body');
+  const previous=area.value.replace(/\\[\\[BG\\|[^\\]]*\\]\\]\\n?/g,'');
+  if(previous.length+data.length>450000){alert('편지지 이미지 용량이 너무 커요. 더 작은 이미지를 선택해 주세요.');return;}
+  area.value='[[BG|'+data+']]\n'+previous;
+  area.focus();
+ }catch(e){alert('편지지 이미지를 읽지 못했어요.');}
+ finally{window.URL.revokeObjectURL(objectUrl);event.target.value='';}
 };
 let letterBgmPlaying=false;
 $('bgmToggle').onclick=()=>{
