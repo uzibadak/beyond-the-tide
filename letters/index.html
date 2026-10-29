@@ -383,6 +383,19 @@ body::before {
 html.water-arrival #letterWaterTransition:not(.rising){visibility:visible!important;opacity:1!important;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
 .letter-home-link{display:inline-block;text-decoration:none;color:inherit;font-size:11px;letter-spacing:.15em;border-bottom:1px solid currentColor;padding-bottom:4px}
 @media(prefers-reduced-motion:reduce){#letterWaterTransition.diving,#letterWaterTransition.rising{animation-duration:.01ms!important}}
+
+/* Optional per-letter stationery and embedded media */
+.detail.has-stationery{background-size:cover;background-position:center;border-radius:16px;padding:24px;position:relative;isolation:isolate;overflow:hidden}
+.detail.has-stationery::before{content:"";position:absolute;inset:0;background:rgba(255,250,247,.82);z-index:-1}
+.bodytext a{color:#80506d;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.bodytext img.letter-photo{display:block;max-width:100%;max-height:680px;object-fit:contain;margin:20px auto;border-radius:8px;box-shadow:0 5px 22px #33202a22}
+.letter-tools{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px}
+.letter-tools button{border:1px solid var(--line);background:#ffffffb8;color:var(--ink);padding:9px 13px;border-radius:9px;cursor:pointer;font-family:inherit}
+.letter-tools-note{font-size:12px;line-height:1.7;color:var(--muted);margin:0 0 8px}
+.letter-bgm{position:fixed;bottom:18px;right:18px;z-index:30;background:rgba(252,245,246,.94);border:1px solid #d5bec8;box-shadow:0 8px 30px #46304025;border-radius:20px;padding:10px 14px;display:flex;align-items:center;gap:10px;font-size:12px;backdrop-filter:blur(12px)}
+.letter-bgm button{border:0;background:transparent;color:#6c485c;cursor:pointer;font-family:inherit;font-size:13px}
+.letter-bgm iframe{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+@media(max-width:600px){.letter-bgm{bottom:12px;right:12px}.detail.has-stationery{padding:15px}}
 </style>
 </head>
 <body>
@@ -491,7 +504,7 @@ html.water-arrival #letterWaterTransition:not(.rising){visibility:visible!import
 <label class="letter-field-label" for="author">FROM</label>
 <div class="identity-label" id="author"></div>
 <input class="field" id="title" placeholder="Letter title"/>
-<textarea id="body" placeholder="Write your words here..."></textarea>
+<div class="letter-tools"><button type="button" id="addLink">🔗 링크</button><button type="button" id="addPhoto">▧ 사진 여러 장</button><button type="button" id="addStationery">✿ 이 편지의 배경</button><input type="file" id="photoFiles" accept="image/*" multiple hidden></div><p class="letter-tools-note">글씨를 선택하고 링크 버튼을 누르세요. 사진은 커서 위치에 삽입됩니다. 배경은 이 편지에만 적용돼요.</p><textarea id="body" placeholder="Write your words here..."></textarea>
 </div>
 <div class="actions">
 <button class="btn primary" id="save">
@@ -500,7 +513,7 @@ html.water-arrival #letterWaterTransition:not(.rising){visibility:visible!import
 </div>
 <p class="notice">편지는 제가 안전하게 보관하고 있어요!</p>
 </section>
-<div class="foot">
+<div class="letter-bgm" id="letterBgm"><span>♫ yohaku #4</span><button type="button" id="bgmToggle" aria-label="음악 재생">▷ 재생</button><div id="bgmFrame"></div></div><div class="foot">
     기욱 / 최월화 · SINCE 2026.10.18
    </div>
 </div>
@@ -580,7 +593,7 @@ function list(){
 function read(id){
  if(!authRequired())return;
  const l=letters.find(x=>x.id===id);if(!l){list();show('inbox');return;}
- current=id;$('readTitle').textContent=l.title;$('readBody').textContent=l.body;
+ current=id;$('readTitle').textContent=l.title;renderLetterBody(l.body);
  $('readBy').textContent=nameOf(l.author_id)+' · '+dateOf(l.created_at);
  $('editLetter').classList.toggle('hidden',l.author_id!==user.id);
  $('deleteLetter').classList.toggle('hidden',l.author_id!==user.id);
@@ -647,7 +660,7 @@ async function login(){
   if(error)throw error;
   if(!data.user||!MEMBERS[data.user.id]){await db.auth.signOut();throw new Error('입장할 수 없는 계정이에요.');}
   user=data.user;$('secret').value='';renderIdentity();
-  if(await load()){list();show('inbox');}
+  if(await load()){list();show('inbox');setTimeout(()=>ytPlayer?.playVideo(),1100);}
  }catch(e){notice(e.message||'서버에 연결하지 못했어요.');}
  finally{busy=false;$('enter').disabled=false;}
 }
@@ -663,7 +676,7 @@ $('deleteLetter').onclick=async()=>{
  if(!confirm('「'+l.title+'」 편지를 삭제할까요? 댓글도 함께 삭제되며 되돌릴 수 없어요.'))return;
  const {data,error}=await db.from('letters').delete().eq('id',l.id).eq('author_id',user.id).select('id');
  if(error)return showError(error);if(!data?.length)return alert('삭제 권한이 없거나 편지가 삭제되었어요.');
- current=null;if(await load()){list();show('inbox');}
+ current=null;if(await load()){list();show('inbox');setTimeout(()=>ytPlayer?.playVideo(),1100);}
 };
 $('save').onclick=async()=>{
  if(busy||!authRequired())return;
@@ -683,7 +696,7 @@ $('postComment').onclick=async()=>{const t=$('commentText').value.trim();if(!t)r
 (async()=>{
  try{
   const {data,error}=await db.auth.getUser();
-  if(!error&&data.user&&MEMBERS[data.user.id]){user=data.user;renderIdentity();if(await load()){list();show('inbox');return;}}
+  if(!error&&data.user&&MEMBERS[data.user.id]){user=data.user;renderIdentity();if(await load()){list();show('inbox');setTimeout(()=>ytPlayer?.playVideo(),1100);return;}}
   if(data.user&&!MEMBERS[data.user.id])await db.auth.signOut();
  }catch(e){console.error('Session restoration failed:',e?.message);}
  show('gate');
