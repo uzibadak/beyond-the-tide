@@ -590,6 +590,67 @@ function list(){
  }
  if(!box.children.length)box.append(el('p','notice','기욱 씨에게 남기고 싶은 말을 생각 중이에요.'));
 }
+
+function renderLetterBody(raw){
+ const box=$('readBody');box.replaceChildren();
+ const text=String(raw||'');let pos=0,bg='';
+ const pattern=new RegExp('\\[\\[(LINK|PHOTO|BG)\\|([^\\]]*)\\]\\]','g');
+ let m;
+ while((m=pattern.exec(text))){
+  box.append(document.createTextNode(text.slice(pos,m.index)));
+  const type=m[1],value=m[2];
+  if(type==='BG')bg=value;
+  else if(type==='PHOTO'&&value.startsWith('data:image/')){
+   const img=document.createElement('img');img.src=value;img.className='letter-photo';img.alt='첨부 사진';box.append(img);
+  }else if(type==='LINK'){
+   const sep=value.indexOf('|'),label=value.slice(0,sep),url=value.slice(sep+1);
+   if(sep>=0&&url.startsWith('https://')){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label;box.append(a);}
+   else box.append(document.createTextNode(value));
+  }
+  pos=pattern.lastIndex;
+ }
+ box.append(document.createTextNode(text.slice(pos)));
+ const detail=box.closest('.detail');
+ if(detail){detail.classList.toggle('has-stationery',!!bg);detail.style.backgroundImage=bg.startsWith('https://')?'url("'+bg.replaceAll('"','')+'")':'';}
+}
+function insertAtCursor(value){
+ const area=$('body');area.setRangeText(value,area.selectionStart,area.selectionEnd,'end');area.focus();
+}
+$('addLink').onclick=()=>{
+ const area=$('body'),start=area.selectionStart,end=area.selectionEnd;
+ const label=prompt('링크로 만들 글씨',area.value.slice(start,end)||'yohaku #4');if(!label)return;
+ const url=prompt('연결할 링크','https://youtu.be/7C_jx4Zgp3Y');if(!url)return;
+ if(!url.startsWith('https://'))return alert('https:// 주소를 넣어 주세요.');
+ area.setRangeText('[[LINK|'+label.replaceAll('|','')+'|'+url+']]',start,end,'end');area.focus();
+};
+$('addPhoto').onclick=()=>$('photoFiles').click();
+$('photoFiles').onchange=async event=>{
+ for(const file of event.target.files){
+  if(!file.type.startsWith('image/'))continue;
+  const url=window.URL.createObjectURL(file),img=new Image();
+  try{
+   await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=url;});
+   const scale=Math.min(1,1100/Math.max(img.width,img.height));
+   const canvas=document.createElement('canvas');canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);
+   canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);
+   const data=canvas.toDataURL('image/jpeg',.72);
+   if($('body').value.length+data.length>450000){alert('사진 용량이 너무 커요.');break;}
+   insertAtCursor('\n[[PHOTO|'+data+']]\n');
+  }catch(e){alert('사진을 읽지 못했어요.');}finally{window.URL.revokeObjectURL(url);}
+ }
+ event.target.value='';
+};
+$('addStationery').onclick=()=>{
+ const url=prompt('이 편지의 배경 이미지 주소 (https://)');
+ if(url&&url.startsWith('https://'))insertAtCursor('[[BG|'+url+']]\n');
+};
+let letterBgmPlaying=false;
+$('bgmToggle').onclick=()=>{
+ const box=$('bgmFrame');
+ if(letterBgmPlaying){box.replaceChildren();$('bgmToggle').textContent='▷ 재생';letterBgmPlaying=false;return;}
+ const frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/7C_jx4Zgp3Y?autoplay=1&loop=1&playlist=7C_jx4Zgp3Y';frame.allow='autoplay; encrypted-media';frame.title='yohaku #4';box.replaceChildren(frame);$('bgmToggle').textContent='Ⅱ 정지';letterBgmPlaying=true;
+};
+
 function read(id){
  if(!authRequired())return;
  const l=letters.find(x=>x.id===id);if(!l){list();show('inbox');return;}
@@ -660,7 +721,7 @@ async function login(){
   if(error)throw error;
   if(!data.user||!MEMBERS[data.user.id]){await db.auth.signOut();throw new Error('입장할 수 없는 계정이에요.');}
   user=data.user;$('secret').value='';renderIdentity();
-  if(await load()){list();show('inbox');setTimeout(()=>ytPlayer?.playVideo(),1100);}
+  if(await load()){list();show('inbox');}
  }catch(e){notice(e.message||'서버에 연결하지 못했어요.');}
  finally{busy=false;$('enter').disabled=false;}
 }
@@ -676,7 +737,7 @@ $('deleteLetter').onclick=async()=>{
  if(!confirm('「'+l.title+'」 편지를 삭제할까요? 댓글도 함께 삭제되며 되돌릴 수 없어요.'))return;
  const {data,error}=await db.from('letters').delete().eq('id',l.id).eq('author_id',user.id).select('id');
  if(error)return showError(error);if(!data?.length)return alert('삭제 권한이 없거나 편지가 삭제되었어요.');
- current=null;if(await load()){list();show('inbox');setTimeout(()=>ytPlayer?.playVideo(),1100);}
+ current=null;if(await load()){list();show('inbox');}
 };
 $('save').onclick=async()=>{
  if(busy||!authRequired())return;
@@ -696,7 +757,7 @@ $('postComment').onclick=async()=>{const t=$('commentText').value.trim();if(!t)r
 (async()=>{
  try{
   const {data,error}=await db.auth.getUser();
-  if(!error&&data.user&&MEMBERS[data.user.id]){user=data.user;renderIdentity();if(await load()){list();show('inbox');setTimeout(()=>ytPlayer?.playVideo(),1100);return;}}
+  if(!error&&data.user&&MEMBERS[data.user.id]){user=data.user;renderIdentity();if(await load()){list();show('inbox');return;}}
   if(data.user&&!MEMBERS[data.user.id])await db.auth.signOut();
  }catch(e){console.error('Session restoration failed:',e?.message);}
  show('gate');
