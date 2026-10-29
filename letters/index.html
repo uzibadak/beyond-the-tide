@@ -524,7 +524,7 @@ html.water-arrival #letterWaterTransition:not(.rising){visibility:visible!import
 </div>
 <p class="notice">당신을 언제나 생각해요.</p>
 </section>
-<div class="letter-bgm" id="letterBgm"><span>♫ yohaku #4</span><button type="button" id="bgmToggle" aria-label="음악 재생">▷</button><div id="bgmFrame"></div></div><div class="foot">
+<div class="letter-bgm" id="letterBgm"><span>♫ playlist</span><button type="button" id="bgmToggle" aria-label="음악 재생">▷</button><div id="bgmFrame"></div></div><div class="foot">
     기욱 / 최월화 · SINCE 2026.10.18
    </div>
 </div>
@@ -629,8 +629,8 @@ function insertAtCursor(value){
 }
 $('addLink').onclick=()=>{
  const area=$('body'),start=area.selectionStart,end=area.selectionEnd;
- const label=prompt('링크로 만들 글씨',area.value.slice(start,end)||'yohaku #4');if(!label)return;
- const url=prompt('연결할 링크','https://youtu.be/7C_jx4Zgp3Y');if(!url)return;
+ const label=prompt('링크로 만들 글씨',area.value.slice(start,end)||'playlist');if(!label)return;
+ const url=prompt('연결할 링크','https://youtu.be/5h9Cq9rSg9Q');if(!url)return;
  if(!url.startsWith('https://'))return alert('https:// 주소를 넣어 주세요.');
  area.setRangeText('[[LINK|'+label.replaceAll('|','')+'|'+url+']]',start,end,'end');area.focus();
 };
@@ -677,10 +677,10 @@ $('bgmToggle').onclick=()=>{
  const box=$('bgmFrame'),player=$('letterBgm');
  if(letterBgmPlaying){box.replaceChildren();player.classList.remove('is-open');$('bgmToggle').textContent='▷';$('bgmToggle').setAttribute('aria-label','음악 재생');letterBgmPlaying=false;return;}
  const frame=document.createElement('iframe');
- frame.src='https://www.youtube.com/embed/7C_jx4Zgp3Y?autoplay=1&loop=1&playlist=7C_jx4Zgp3Y';
+ frame.src='https://www.youtube.com/embed/5h9Cq9rSg9Q?autoplay=1&loop=1&playlist=5h9Cq9rSg9Q';
  frame.allow='autoplay; encrypted-media; picture-in-picture';
  frame.allowFullscreen=true;
- frame.title='THE LIQUID RAY - yohaku #4';
+ frame.title='Letters to You BGM';
  box.replaceChildren(frame);player.classList.add('is-open');
  $('bgmToggle').textContent='✕';$('bgmToggle').setAttribute('aria-label','플레이어 닫기');
  letterBgmPlaying=true;
