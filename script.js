@@ -128,12 +128,59 @@ window.addEventListener("popstate", (event) => {
   waterSwitch(() => exactView(view), destination);
 });
 
+const galleryPageSize = 10;
+let galleryCurrentPage = 1;
+const galleryPagination = document.createElement('nav');
+galleryPagination.className = 'gallery-pagination';
+galleryPagination.setAttribute('aria-label', '갤러리 페이지');
+galleryGrid?.insertAdjacentElement('afterend', galleryPagination);
+const galleryPageStyle = document.createElement('style');
+galleryPageStyle.textContent = `
+.gallery-pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:9px;margin:30px auto 22px}
+.gallery-pagination button{border:1px solid rgba(110,117,138,.25);border-radius:999px;background:rgba(255,255,255,.55);color:#687389;padding:8px 13px;min-width:36px;cursor:pointer;font:inherit;transition:background .2s,opacity .2s}
+.gallery-pagination button.active{background:#e9eaf0;color:#354358;border-color:#aeb9c9}
+.gallery-pagination button:disabled{opacity:.3;cursor:default}
+.gallery-pagination button:focus-visible{outline:2px solid #7e96b5;outline-offset:2px}
+`;
+document.head.appendChild(galleryPageStyle);
+function renderGalleryPage(scrollToTop = false){
+  const filter = galleryFilters.find(b => b.classList.contains('active'))?.dataset.filter || 'all';
+  const filtered = galleryItems.filter(item => filter === 'all' || item.dataset.category === filter);
+  const totalPages = Math.max(1, Math.ceil(filtered.length / galleryPageSize));
+  galleryCurrentPage = Math.min(Math.max(1, galleryCurrentPage), totalPages);
+  galleryItems.forEach(item => item.classList.add('is-hidden'));
+  filtered.slice((galleryCurrentPage - 1) * galleryPageSize, galleryCurrentPage * galleryPageSize)
+    .forEach(item => item.classList.remove('is-hidden'));
+  visibleGalleryItems = filtered.slice((galleryCurrentPage - 1) * galleryPageSize, galleryCurrentPage * galleryPageSize);
+  galleryPagination.replaceChildren();
+  if(totalPages > 1){
+    const addButton = (label, page, disabled, active = false) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.textContent = label;
+      button.disabled = disabled;
+      button.classList.toggle('active', active);
+      if(active) button.setAttribute('aria-current', 'page');
+      button.addEventListener('click', () => {
+        galleryCurrentPage = page;
+        renderGalleryPage(true);
+      });
+      galleryPagination.appendChild(button);
+    };
+    addButton('‹ 이전', galleryCurrentPage - 1, galleryCurrentPage === 1);
+    for(let page = 1; page <= totalPages; page++)
+      addButton(String(page), page, false, page === galleryCurrentPage);
+    addButton('다음 ›', galleryCurrentPage + 1, galleryCurrentPage === totalPages);
+  }
+  if(scrollToTop) galleryPage.scrollTo({top: 0, behavior: 'smooth'});
+}
 galleryFilters.forEach(btn => btn.addEventListener('click', () => {
-  galleryFilters.forEach(b => b.classList.remove('active')); btn.classList.add('active');
-  const filter = btn.dataset.filter;
-  galleryItems.forEach(item => item.classList.toggle('is-hidden', filter !== 'all' && item.dataset.category !== filter));
-  visibleGalleryItems = galleryItems.filter(item => !item.classList.contains('is-hidden'));
+  galleryFilters.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  galleryCurrentPage = 1;
+  renderGalleryPage();
 }));
+renderGalleryPage();
 
 function closeGalleryLightbox(){
   lightboxVideo.pause();
