@@ -136,12 +136,13 @@ galleryPagination.setAttribute('aria-label', '갤러리 페이지');
 galleryGrid?.insertAdjacentElement('afterend', galleryPagination);
 const galleryPageStyle = document.createElement('style');
 galleryPageStyle.textContent = `
-.gallery-pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:9px;margin:30px auto 22px}
-.gallery-pagination button{border:1px solid rgba(110,117,138,.25);border-radius:999px;background:rgba(255,255,255,.55);color:#687389;padding:8px 13px;min-width:36px;cursor:pointer;font:inherit;transition:background .2s,opacity .2s}
-.gallery-pagination button.active{background:#e9eaf0;color:#354358;border-color:#aeb9c9}
-.gallery-pagination button:disabled{opacity:.3;cursor:default}
-.gallery-pagination button:focus-visible{outline:2px solid #7e96b5;outline-offset:2px}
-`;
+.gallery-pagination{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:13px;margin:36px auto 24px}
+.gallery-pagination button{border:0;border-radius:50%;background:transparent;color:rgba(83,112,132,.65);padding:7px 9px;min-width:32px;cursor:pointer;font:inherit;font-size:13px;font-weight:400;letter-spacing:.035em;transition:background .25s,color .25s,opacity .25s}
+.gallery-pagination button:hover:not(:disabled){background:rgba(218,234,239,.38);color:#496f86}
+.gallery-pagination button.active{background:radial-gradient(circle,rgba(226,240,242,.85),rgba(233,239,243,.38) 65%,transparent 76%);color:#426b83;font-weight:600}
+.gallery-pagination button:disabled{opacity:.24;cursor:default}
+.gallery-pagination button:focus-visible{outline:1px solid rgba(105,149,168,.65);outline-offset:3px}
+``;
 document.head.appendChild(galleryPageStyle);
 function renderGalleryPage(scrollToTop = false){
   const filter = galleryFilters.find(b => b.classList.contains('active'))?.dataset.filter || 'all';
