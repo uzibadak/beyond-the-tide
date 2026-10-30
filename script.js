@@ -142,7 +142,7 @@ galleryPageStyle.textContent = `
 .gallery-pagination button.active{background:radial-gradient(circle,rgba(226,240,242,.85),rgba(233,239,243,.38) 65%,transparent 76%);color:#426b83;font-weight:600}
 .gallery-pagination button:disabled{opacity:.24;cursor:default}
 .gallery-pagination button:focus-visible{outline:1px solid rgba(105,149,168,.65);outline-offset:3px}
-``;
+`;
 document.head.appendChild(galleryPageStyle);
 function renderGalleryPage(scrollToTop = false){
   const filter = galleryFilters.find(b => b.classList.contains('active'))?.dataset.filter || 'all';
