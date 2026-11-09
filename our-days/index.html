@@ -178,6 +178,10 @@ html.water-arrival .water-transition:not(.rising){visibility:visible!important;o
 .board,.count,.diary-controls,.composer,.foot{z-index:2;position:relative}
 .diary-page-out{opacity:.35;transform:translateX(-18px)}
 @media(max-width:590px){.fridge{padding:25px 14px 34px;transform:rotate(-.35deg)}.board{padding:20px 10px 25px}.board .note{padding:27px 18px 18px}.diary-doodles img{width:34px}}
+/* Two side-by-side memo columns on each diary page. */
+.board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:24px 22px;min-height:190px}
+.board .note{width:auto;min-width:0}
+@media(max-width:590px){.board{grid-template-columns:1fr}}
 /* Keep the live Supabase memo and reply layout; one diary sheet per page. */
 .board .note{display:flex;flex-direction:column;min-height:245px}
 .board .note .notehead{order:5;margin-top:16px;justify-content:flex-end}
