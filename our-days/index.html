@@ -193,6 +193,34 @@ html.water-arrival .water-transition:not(.rising){visibility:visible!important;o
 .board .note .magnet{order:0}
 .diary-controls[hidden]{display:none!important}
 @media(max-width:590px){.board .note{min-height:200px}}
+
+/* Our Days visual contrast refresh · 2026-11-09 */
+.fridge{
+  max-width:820px;
+  box-shadow:0 20px 6px #554d5a18,0 34px 78px #3f39465c,0 0 0 1px #fff8;
+}
+.board{gap:30px 27px;padding:20px 23px 32px}
+.board .note{
+  color:#625a61;
+  box-shadow:3px 10px 18px #5445503b,0 2px 4px #54455020;
+  transition:opacity .25s,transform .3s,box-shadow .3s;
+}
+.board .note:nth-child(4n+1){background:#f5e4b9;transform:rotate(-1.8deg)}
+.board .note:nth-child(4n+2){background:#e0ebf1;transform:rotate(1.2deg)}
+.board .note:nth-child(4n+3){background:#f1d9e4;transform:rotate(.9deg)}
+.board .note:nth-child(4n){background:#e7ddf1;transform:rotate(-1.3deg)}
+.board .note:hover,.board .note:focus-within{
+  transform:translateY(-4px) rotate(0deg);
+  box-shadow:4px 15px 24px #54455052,0 2px 5px #54455022;
+}
+.board .note .content{color:#625a61;font-weight:400}
+.board .note .replytoggle,.board .note .notehead,.board .note .note-delete{color:#81717c}
+@media(max-width:900px){.fridge{max-width:min(820px,94vw)}}
+@media(max-width:590px){
+  .fridge{max-width:94vw;padding:25px 14px 34px}
+  .board{grid-template-columns:1fr;gap:25px;padding:20px 10px 25px}
+  .board .note{min-height:200px}
+}
 </style></head>
 <body><div class="water-transition pink-water" id="oceanExit" aria-hidden="true"><div class="water-glow"></div></div><main>
 <a class="back" href="../?return=menu#menu">← BEYOND THE TIDE</a>
